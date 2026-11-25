@@ -1,5 +1,7 @@
 # FedEx Office Travel Policy Flight Booking
 
+**Source of the handbook:** https://na.eventscloud.com/file_uploads/40defc4eb121cf6410d0136394fa1edd_FedExOfficeTravelandBusinessExpensePolicy.pdf. The agent reads it verbatim (bundled at `src/plugin/data/policy.txt`); flights, fares and trips are synthetic.
+
 **No affiliation with FedEx Office or FedEx Corporation.** The handbook is the company's *Travel and Business
 Expense* policy (updated January 19, 2015), a PDF hosted publicly on an events site, bundled verbatim for research.
 Do not publish this plugin before the course staff confirm that a verbatim corporate handbook may be redistributed
