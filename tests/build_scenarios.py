@@ -163,7 +163,7 @@ AM = ["APPROVING_MANAGER", "NONE"]  # rule 4': the advance trip approval on file
 LOW_CLAUSES = ["AIR_TRAVEL", "CLASS_OF_SERVICE", "POLICY_GENERAL"]
 CLASS = ["AIR_TRAVEL", "CLASS_OF_SERVICE"]
 LOW = [LOWEST, LOW_COSTS, APPROVED]
-CLEAR_CONNECTION = ["ALTERNATE_ROUTE_TOO_EXPENSIVE", "COST_SAVINGS", "LOWEST_FARE"]
+CLEAR_CONNECTION = ["ALTERNATE_ROUTE_TOO_EXPENSIVE", "ALTERNATE_ROUTE_WITHIN_MARGIN", "COST_SAVINGS", "LOWEST_FARE"]
 OPEN_CONNECTION = ["ALTERNATE_ROUTE_WITHIN_MARGIN", "COST_SAVINGS", "LOWEST_FARE"]
 NO_UPGRADE = ["UPGRADE_NOT_ELIGIBLE"]
 NOT_LONG = ["LONG_FLIGHT_CONDITION_NOT_MET", "UPGRADE_NOT_ELIGIBLE"]
@@ -235,7 +235,7 @@ scenario(
         offer("united-economy", "united", "ECONOMY", 89800),
         offer("united-business", "united", "BUSINESS", 398000),
     ], background=0),
-    expected("BOOK", ["united-business"], ["BUSINESS"], ["INTERNATIONAL_LONG_FLIGHT"], AM, CLASS),
+    expected("BOOK", ["united-business"], ["BUSINESS"], ["INTERNATIONAL_LONG_FLIGHT", "LONG_FLIGHT_APPROVED"], AM, CLASS),
     [BUSINESS, APPROVED],
     "International nonstops of 515 and 520 scheduled minutes: more than 6 hours of flying, so business class may be used "
     "(lines 154-156) and the traveller asks for it: the cheaper business fare. No approver is named for it.")
@@ -314,7 +314,7 @@ scenario(
     "fern-quarry", "boundary_twin", ["dearer_option"], DUB_REQUEST,
     trip(traveller_name="Siobhan Carter", traveller_title="Senior Manager, Print Services", **DUB_TRIP),
     dub(361),
-    expected("BOOK", ["aerlingus-business"], ["BUSINESS"], ["INTERNATIONAL_LONG_FLIGHT"], AM, CLASS),
+    expected("BOOK", ["aerlingus-business"], ["BUSINESS"], ["INTERNATIONAL_LONG_FLIGHT", "LONG_FLIGHT_APPROVED"], AM, CLASS),
     [BUSINESS, APPROVED],
     "Both nonstops are scheduled at 361 minutes: more than 6 hours of flying (lines 154-156), so business class may be "
     "used; the cheaper business fare. Background is off so no filler routing can fall on the other side.",
@@ -454,10 +454,13 @@ scenario(
         offer("delta-economy", "delta", "ECONOMY", 37200),
         offer("delta-first", "delta", "FIRST", 116500),
     ], background=2),
-    expected("BOOK", ["delta-first"], ["FIRST"], ["TRAVELER_PAYS_UPGRADE"], AM, CLASS),
+    expected("BOOK", ["american-first", "delta-first"], ["FIRST"], ["TRAVELER_PAYS_UPGRADE"], AM, CLASS),
     [SELF_PAY, APPROVED],
     "Not a VP, but 'Team Members may upgrade to first class by personally paying the cost of the upgrade' at ticketing "
-    "(lines 145-149): the cheapest first-class fare, the traveller paying the difference from coach. The "
+    "(lines 145-149): the cheapest first-class fare (Delta), the traveller paying the difference from coach, or "
+    "first class on the American flight that carries the lowest coach fare: 'the best available coach' (line 147) "
+    "reads as the lowest coach fare overall or the upgraded flight's own, and the American upgrade keeps FXO at the "
+    "lowest logical coach airfare (line 135) on both readings (validation w2). The "
     "non-reimbursement of upgrades (lines 174-175, 815) does not stop the traveller paying their own.",
     distractors=[SEAT_UPGRADE, NR_UPGRADES])
 
@@ -591,7 +594,7 @@ scenario(
         offer("klm-economy", "klm", "ECONOMY", 86900),
         offer("klm-business", "klm", "BUSINESS", 348000),
     ], background=0),
-    expected("BOOK", ["klm-business"], ["BUSINESS"], ["INTERNATIONAL_LONG_FLIGHT"], AM, CLASS),
+    expected("BOOK", ["klm-business"], ["BUSINESS"], ["INTERNATIONAL_LONG_FLIGHT", "LONG_FLIGHT_APPROVED"], AM, CLASS),
     [BUSINESS, APPROVED],
     "Booked 9 days ahead (November 27 to December 6). Lines 121-124 ask Team Members to 'make every attempt' to book "
     "14 days ahead (under Domestic Airline Tickets) and note that non-refundable fares usually need it, but that is no "

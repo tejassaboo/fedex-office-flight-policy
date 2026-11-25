@@ -186,7 +186,10 @@ def connection_choice(trip, economy):
         # A nonstop the traveller asked for is declined on the savings and delay test, which is part of the
         # lowest-logical-fare rule, so LOWEST_FARE is accepted beside the specific codes (lead's decision, the same
         # in every plugin); a traveller who asked for nothing gets the same set.
-        reasons = [ReasonCode.COST_SAVINGS, ReasonCode.ALTERNATE_ROUTE_TOO_EXPENSIVE, ReasonCode.LOWEST_FARE]
+        # ALTERNATE_ROUTE_WITHIN_MARGIN: the connection is within the line 131-133 margin (validation w2,
+        # juniper-slate), the code the Carter's and open-connection keys use for the same fact.
+        reasons = [ReasonCode.COST_SAVINGS, ReasonCode.ALTERNATE_ROUTE_TOO_EXPENSIVE, ReasonCode.LOWEST_FARE,
+                   ReasonCode.ALTERNATE_ROUTE_WITHIN_MARGIN]
         return ([connection], reasons, [Clause.CONNECTING_FLIGHTS],
                 (f"lines 129-133: the one-connection fare saves {savings} cents (more than $150) and delays the travel "
                 f"{delay} minutes (not more than two hours), so the connection is to be accepted"))
@@ -306,9 +309,18 @@ def first_request(trip, seated, economy, trip_roles):
                       "level management before a flight can be booked in a higher class; it was approved by someone "
                       "below VP, so hold the first-class fare for the VP.")
     if trip.traveller_pays_difference:
-        return answer(Decision.BOOK, first, [ReasonCode.TRAVELER_PAYS_UPGRADE], trip_roles, CLASS_CLAUSES,
+        # Validation w2 (mallow-pier): "the best available coach" (line 147) is the lowest coach fare overall or the
+        # coach fare of the upgraded flight. First class on the flight of the lowest coach fare keeps FXO at the
+        # lowest logical coach airfare (line 135) on both readings, so it is accepted beside the cheapest first.
+        def flight(offer):
+            return [segment.flight_number for segment in offer.segments]
+        coach_flights = [flight(offer) for offer in cheapest(economy)]
+        upgraded = [offer for offer in seated if offer.cabin == Cabin.FIRST and flight(offer) in coach_flights]
+        chosen = first + [offer for offer in upgraded if offer.offer_id not in {o.offer_id for o in first}]
+        return answer(Decision.BOOK, chosen, [ReasonCode.TRAVELER_PAYS_UPGRADE], trip_roles, CLASS_CLAUSES,
                       "Lines 145-149: a Team Member may upgrade to first class by personally paying the difference from "
-                      "the best available coach fare at ticketing; the cheapest first-class fare.")
+                      "the best available coach fare at ticketing; the cheapest first-class fare, or first class on "
+                      "the flight of the lowest coach fare.")
     exceptions = signed(trip, SignOffSubject.POLICY_EXCEPTION)
     if exceptions:
         coach = cheapest(economy)
@@ -375,7 +387,9 @@ def business_request(trip, seated, economy, trip_roles):
                       "an exception for the department MD (lines 77-78).", phrase=CONNECTIONS_PHRASE)
     if any(offer.stops for offer in business):
         raise ValueError("a business fare on a connection is not modelled")
-    return answer(Decision.BOOK, business, [ReasonCode.INTERNATIONAL_LONG_FLIGHT], trip_roles, CLASS_CLAUSES,
+    # LONG_FLIGHT_APPROVED names the same ground (validation w2, cinder-heath), as in most plugins' keys.
+    return answer(Decision.BOOK, business, [ReasonCode.INTERNATIONAL_LONG_FLIGHT, ReasonCode.LONG_FLIGHT_APPROVED],
+                  trip_roles, CLASS_CLAUSES,
                   "Lines 154-156: international travel with more than 6 hours of flying time may use business class; "
                   "the cheapest business fare.")
 
