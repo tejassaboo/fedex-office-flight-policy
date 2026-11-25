@@ -183,8 +183,13 @@ def connection_choice(trip, economy):
         raise ValueError("a delay that is within two hours on one measure and over on another is not modelled")
     delay = max(delays)
     if savings > SAVINGS_CENTS and delay <= DELAY_MINUTES:
-        return ([connection], [ReasonCode.COST_SAVINGS, ReasonCode.LOWEST_FARE, ReasonCode.ALTERNATE_ROUTE_TOO_EXPENSIVE],
-                [Clause.CONNECTING_FLIGHTS],
+        reasons = [ReasonCode.COST_SAVINGS, ReasonCode.ALTERNATE_ROUTE_TOO_EXPENSIVE]
+        # A nonstop the traveller asked for is declined on the example's savings and delay test (a $150 saving
+        # alone keeps it, iris-brook), so the reason names that test and LOWEST_FARE is not accepted; a traveller
+        # who asked for nothing gets the lowest logical fare, and LOWEST_FARE names it.
+        if trip.requested_routing != Routing.NONSTOP:
+            reasons.append(ReasonCode.LOWEST_FARE)
+        return ([connection], reasons, [Clause.CONNECTING_FLIGHTS],
                 (f"lines 129-133: the one-connection fare saves {savings} cents (more than $150) and delays the travel "
                 f"{delay} minutes (not more than two hours), so the connection is to be accepted"))
     if trip.requested_routing != Routing.NONSTOP:
@@ -253,6 +258,8 @@ def economy_request(trip, economy, trip_roles):
     clauses = [*LOWEST_CLAUSES, *clauses]
     notes = [note]
     if trip.requested_airline:
+        # Lines 820-821 decline the airline because a cheaper fare exists: the ground is the lowest-fare rule itself,
+        # so LOWEST_FARE stays beside LOYALTY_PROGRAM_PREFERENCE.
         if all(offer.carrier == trip.requested_airline for offer in chosen):
             raise ValueError("an airline wish that the lowest fare already meets is not modelled")
         reasons.append(ReasonCode.LOYALTY_PROGRAM_PREFERENCE)
@@ -271,9 +278,10 @@ def economy_request(trip, economy, trip_roles):
 def ineligible(trip, economy, trip_roles, why):
     """A better cabin the traveller may not have: the lowest logical coach airfare instead."""
     chosen, reasons, clauses, note = connection_choice(trip, economy)
-    if clauses:
+    if clauses or reasons != [ReasonCode.LOWEST_FARE]:
         raise ValueError("a refused upgrade whose coach fare turns on the connecting-flights rule is not modelled")
-    return answer(Decision.BOOK, chosen, [ReasonCode.UPGRADE_NOT_ELIGIBLE, *reasons], trip_roles,
+    # The reason names why the cabin is declined, so LOWEST_FARE (the coach fare's own reason) is not accepted.
+    return answer(Decision.BOOK, chosen, [ReasonCode.UPGRADE_NOT_ELIGIBLE], trip_roles,
                   [*LOWEST_CLAUSES], f"{why}; {note}.")
 
 

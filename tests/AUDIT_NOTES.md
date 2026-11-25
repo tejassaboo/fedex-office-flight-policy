@@ -89,3 +89,27 @@ nanoagent plugin inspect . (stock)      exit 0
 nanoagent plugin pack . (stock)         packed (172,656 bytes)
 stock_verify.py . (stock Python)        24 scenarios, 0 failures
 ```
+
+## Reason codes on declined requests (lead's decision, `_template/APPROVER_REVIEW.md` section 4)
+
+The book task's instructions now end with: "When you book something other than what the traveller asked for, the
+reason code gives why their request is declined." Every BOOK that declines what the traveller asked for was re-read:
+
+- `gull-ridge` (business asked, 360 minutes) and `oak-lantern` (business asked, domestic Honolulu): `LOWEST_FARE`
+  removed. Accept `UPGRADE_NOT_ELIGIBLE`, `LONG_FLIGHT_CONDITION_NOT_MET` (lines 154-156).
+- `nettle-bay` (first beside the VP asked): `LOWEST_FARE` removed. Accepts `UPGRADE_NOT_ELIGIBLE` (lines 138,
+  150-153).
+- `hazel-tarn` and `juniper-slate` (nonstop asked, connection booked): `LOWEST_FARE` removed. Accept
+  `COST_SAVINGS`, `ALTERNATE_ROUTE_TOO_EXPENSIVE`. The nonstop is declined on the example's test (savings over $150,
+  delay not over two hours, lines 129-133); the twin `iris-brook` shows that being the least expensive option alone
+  does not decline it.
+- Kept with `LOWEST_FARE`: `sedge-copper` (United asked; lines 820-821 decline the airline "instead of using a
+  cheaper fare", which is the lowest-fare rule itself, beside `LOYALTY_PROGRAM_PREFERENCE`); `iris-brook` and
+  `kestrel-dune` (the nonstop is accepted too, and the only ground for the connection is "the least expensive
+  option", lines 129-130).
+- Not declines, unchanged: `briar-cove` (connections welcome), `elm-garnet` (economy asked), `quince-harbor`
+  (personal day granted at the traveller's cost), and the granted first and business cases.
+
+Always-cheapest baseline (`MAX_PASS_ALWAYS_LOWEST`): 10 -> 5. Rules changed in both `rules.py` copies (still
+byte-identical); scenario JSON regenerated. Acceptance: pytest 208 passed, ruff clean, `uv lock --check` ok,
+`check_shared.py` ok, `stock_verify.py` 24 scenarios 0 failures, stock `nanoagent plugin inspect .` exit 0.

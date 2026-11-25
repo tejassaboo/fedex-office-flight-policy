@@ -38,6 +38,13 @@ about 14,500 and brings the run to the cap.
   `PERSONAL_COST_PAID_BY_TRAVELER`, and decoy codes from other handbooks' rules. Fares are in cents of US dollars.
 - **Success:** every field is one the answer key accepts; the cabin is graded as the chosen offer's own. Score =
   fields right / 6.
+- **Reasons on a declined request.** The task instructions say that when the booking is not what the traveller asked
+  for, the reason code gives why the request is declined. Such a booking accepts only the codes that name the
+  handbook's ground, not `LOWEST_FARE`: a refused first or business cabin (`gull-ridge`, `nettle-bay`, `oak-lantern`)
+  and a nonstop declined on the savings and delay test of lines 129-133 (`hazel-tarn`, `juniper-slate`).
+  `sedge-copper` keeps `LOWEST_FARE` beside `LOYALTY_PROGRAM_PREFERENCE`: lines 820-821 decline the airline because
+  a cheaper fare exists. `iris-brook` and `kestrel-dune` keep it too: outside the example the only ground for the
+  connection is that it is "the least expensive option" (lines 129-130), and the nonstop is accepted as well.
 - **No hidden facts:** no scenario has `answer_key_inputs`. Every trip record holds the trip's advance approval by
   the traveller's approving manager (lines 760-762: air travel is authorized "if booked through Global Travel and
   approved in advance").
@@ -50,15 +57,15 @@ about 14,500 and brings the run to the cap.
 | `dover-moss` | easy | BOOK (united-first; FIRST) | SENIOR_ROLE_ENTITLEMENT | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (138, 760-762) |
 | `elm-garnet` | easy | BOOK (japan-economy; ECONOMY) | LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or POLICY_GENERAL (135-137, 44-45, 760-762) |
 | `fern-quarry` | boundary_twin | BOOK (aerlingus-business; BUSINESS) | INTERNATIONAL_LONG_FLIGHT | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (154-156, 760-762) |
-| `gull-ridge` | boundary_twin | BOOK (aerlingus-economy; ECONOMY) | LONG_FLIGHT_CONDITION_NOT_MET or LOWEST_FARE or UPGRADE_NOT_ELIGIBLE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or POLICY_GENERAL (154-156, 135-137, 44-45, 760-762) |
-| `hazel-tarn` | boundary_twin | BOOK (chicago-economy; ECONOMY) | ALTERNATE_ROUTE_TOO_EXPENSIVE or COST_SAVINGS or LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or CONNECTING_FLIGHTS or POLICY_GENERAL (135-137, 44-45, 760-762, 129-133) |
+| `gull-ridge` | boundary_twin | BOOK (aerlingus-economy; ECONOMY) | LONG_FLIGHT_CONDITION_NOT_MET or UPGRADE_NOT_ELIGIBLE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or POLICY_GENERAL (154-156, 135-137, 44-45, 760-762) |
+| `hazel-tarn` | boundary_twin | BOOK (chicago-economy; ECONOMY) | ALTERNATE_ROUTE_TOO_EXPENSIVE or COST_SAVINGS | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or CONNECTING_FLIGHTS or POLICY_GENERAL (135-137, 44-45, 760-762, 129-133) |
 | `iris-brook` | boundary_twin | BOOK (chicago-economy or nonstop-economy; ECONOMY) | ALTERNATE_ROUTE_WITHIN_MARGIN or COST_SAVINGS or LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or CONNECTING_FLIGHTS or POLICY_GENERAL (135-137, 44-45, 760-762, 129-133) |
-| `juniper-slate` | boundary_twin | BOOK (atlanta-economy; ECONOMY) | ALTERNATE_ROUTE_TOO_EXPENSIVE or COST_SAVINGS or LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or CONNECTING_FLIGHTS or POLICY_GENERAL (135-137, 44-45, 760-762, 129-133) |
+| `juniper-slate` | boundary_twin | BOOK (atlanta-economy; ECONOMY) | ALTERNATE_ROUTE_TOO_EXPENSIVE or COST_SAVINGS | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or CONNECTING_FLIGHTS or POLICY_GENERAL (135-137, 44-45, 760-762, 129-133) |
 | `kestrel-dune` | boundary_twin | BOOK (atlanta-economy or nonstop-economy; ECONOMY) | ALTERNATE_ROUTE_WITHIN_MARGIN or CONNECTION_TOO_LONG or COST_SAVINGS or LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or CONNECTING_FLIGHTS or POLICY_GENERAL (135-137, 44-45, 760-762, 129-133) |
 | `lark-meadow` | multi_rule | BOOK (alaska-first; FIRST) | MEDICAL_NEED | APPROVING_MANAGER or NONE or VICE_PRESIDENT | AIR_TRAVEL or CLASS_OF_SERVICE (139-144, 760-762) |
 | `mallow-pier` | multi_rule | BOOK (delta-first; FIRST) | TRAVELER_PAYS_UPGRADE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (145-149, 760-762) |
-| `nettle-bay` | multi_rule | BOOK (united-economy; ECONOMY) | LOWEST_FARE or UPGRADE_NOT_ELIGIBLE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or POLICY_GENERAL (150-153, 138, 135-137, 44-45, 760-762) |
-| `oak-lantern` | multi_rule | BOOK (morning-economy; ECONOMY) | LONG_FLIGHT_CONDITION_NOT_MET or LOWEST_FARE or UPGRADE_NOT_ELIGIBLE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or DOMESTIC_MEALS or POLICY_GENERAL (154-156, 298-305, 135-137, 44-45, 760-762) |
+| `nettle-bay` | multi_rule | BOOK (united-economy; ECONOMY) | UPGRADE_NOT_ELIGIBLE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or POLICY_GENERAL (150-153, 138, 135-137, 44-45, 760-762) |
+| `oak-lantern` | multi_rule | BOOK (morning-economy; ECONOMY) | LONG_FLIGHT_CONDITION_NOT_MET or UPGRADE_NOT_ELIGIBLE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or DOMESTIC_MEALS or POLICY_GENERAL (154-156, 298-305, 135-137, 44-45, 760-762) |
 | `plume-sorrel` | hidden_clause | BOOK (american-first; FIRST) | POLICY_EXCEPTION_APPROVED | APPROVING_MANAGER or MANAGING_DIRECTOR or NONE | ACCOUNTABILITY or EXCEPTIONS (77-80, 932-934, 760-762) |
 | `quince-harbor` | hidden_clause | BOOK (alaska-friday; ECONOMY) | LOWEST_FARE or PERSONAL_COST_PAID_BY_TRAVELER | APPROVING_MANAGER or NONE | PERSONAL_WITH_BUSINESS (526-531, 760-762) |
 | `rowan-flint` | distractor | BOOK (klm-business; BUSINESS) | INTERNATIONAL_LONG_FLIGHT | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (154-156, 760-762) |
@@ -104,8 +111,8 @@ the case does not pin lists nothing.
 
 Degenerate agents (`tests/test_verifier.py`): one that always holds the right offer as unclear passes 2 cases
 (`vale-pewter`, `willow-cairn`); one that always books the cheapest seat with `LOWEST_FARE`, `NONE` and the right
-section passes 10 (the cheapest-economy cases, now that `NONE` is accepted beside a sign-off on file; it fails every
-first, business, personal, refusal and hold case).
+section passes 5 (`briar-cove`, `elm-garnet`, `iris-brook`, `kestrel-dune`, `sedge-copper`; it fails every first,
+business, personal, refusal and hold case, and every declined cabin or nonstop whose reason must name the ground).
 
 ## Tools
 

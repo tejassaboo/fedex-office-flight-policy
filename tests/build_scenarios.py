@@ -164,9 +164,10 @@ LOW_CLAUSES = ["AIR_TRAVEL", "CLASS_OF_SERVICE", "POLICY_GENERAL"]
 CLASS = ["AIR_TRAVEL", "CLASS_OF_SERVICE"]
 LOW = [LOWEST, LOW_COSTS, APPROVED]
 CLEAR_CONNECTION = ["ALTERNATE_ROUTE_TOO_EXPENSIVE", "COST_SAVINGS", "LOWEST_FARE"]
+NONSTOP_DECLINED = ["ALTERNATE_ROUTE_TOO_EXPENSIVE", "COST_SAVINGS"]  # the reason names why the nonstop is declined
 OPEN_CONNECTION = ["ALTERNATE_ROUTE_WITHIN_MARGIN", "COST_SAVINGS", "LOWEST_FARE"]
-NO_UPGRADE = ["LOWEST_FARE", "UPGRADE_NOT_ELIGIBLE"]
-NOT_LONG = ["LONG_FLIGHT_CONDITION_NOT_MET", "LOWEST_FARE", "UPGRADE_NOT_ELIGIBLE"]
+NO_UPGRADE = ["UPGRADE_NOT_ELIGIBLE"]
+NOT_LONG = ["LONG_FLIGHT_CONDITION_NOT_MET", "UPGRADE_NOT_ELIGIBLE"]
 UNCLEAR_ROLES = ["MANAGING_DIRECTOR", "NOT_NAMED"]
 
 # ===== easy (5) =====
@@ -350,7 +351,7 @@ scenario(
     "hazel-tarn", "boundary_twin", ["multi_leg"], CLT_REQUEST,
     trip(traveller_name="Andre Wallace", traveller_title="District Manager, Mountain District", **CLT_TRIP),
     clt(23500),
-    expected("BOOK", ["chicago-economy"], ["ECONOMY"], CLEAR_CONNECTION, AM, LOW_CLAUSES + ["CONNECTING_FLIGHTS"]),
+    expected("BOOK", ["chicago-economy"], ["ECONOMY"], NONSTOP_DECLINED, AM, LOW_CLAUSES + ["CONNECTING_FLIGHTS"]),
     LOW + [CONNECT],
     "The one-stop through Chicago saves $151 against the nonstop and arrives 100 minutes later (both leave 09:00; elapsed "
     "300 against 200). Savings exceed $150 and the delay is not more than two hours (lines 129-133): the connection is "
@@ -391,7 +392,7 @@ scenario(
     "juniper-slate", "boundary_twin", ["multi_leg"], SEA_REQUEST,
     trip(traveller_name="Grace Nakamura", traveller_title="Production Specialist", **SEA_TRIP),
     sea(90),
-    expected("BOOK", ["atlanta-economy"], ["ECONOMY"], CLEAR_CONNECTION, AM, LOW_CLAUSES + ["CONNECTING_FLIGHTS"]),
+    expected("BOOK", ["atlanta-economy"], ["ECONOMY"], NONSTOP_DECLINED, AM, LOW_CLAUSES + ["CONNECTING_FLIGHTS"]),
     LOW + [CONNECT],
     "The one-stop through Atlanta saves $240 and, leaving at the same time, arrives exactly 120 minutes after the "
     "nonstop (elapsed 450 against 330). A delay of two hours is not 'more than two hours' (lines 129-133): the "
