@@ -1,0 +1,13 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: "One flight request, the company's real travel policy: book it, refuse it, or hold it for sign-off"
+summary: "An agent handles one traveller's flight request under the FedEx Office Travel and Business Expense Policy (updated January 2015), read verbatim. It reads the trip record, searches a simulated flight world (real airports and airlines, synthetic schedules and fares) and submits a decision with the offer, cabin, reason, approver and policy section. A deterministic verifier rebuilds the offers and the policy's answer itself and checks every field. Twenty-four cases cover flying time on both sides of the limit, connections against nonstops to the dollar and the minute, who may sit up front and why, guests and family members, personal days, and the policy's own unclear words."
+highlights:
+  - "The verbatim policy: no paraphrase, no rules restated in the task"
+  - "Exact boundaries: 360 against 361 flying minutes, $150 against $151 saved, 120 against 121 minutes later"
+  - "Unclear clauses become holds for approval, each once, with clear twins on both sides"
+  - "Fully offline: a hash-seeded flight world with unguessable offer ids"
+steps:
+  - "Name a case, for example aspen-wharf, with the traveller's request"
+  - "The agent reads the trip record and searches flights on the trip's route and date"
+  - "It submits BOOK, REFUSE or FLAG_FOR_APPROVAL with the offer, cabin, reason, approver and section"
+  - "The verifier recomputes the policy's answer and checks every field"

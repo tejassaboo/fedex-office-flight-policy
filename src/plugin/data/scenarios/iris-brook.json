@@ -1,0 +1,159 @@
+{
+  "id": "iris-brook",
+  "category": "boundary_twin",
+  "overlays": [
+    "multi_leg"
+  ],
+  "twin_of": "hazel-tarn",
+  "twin_fact": "the connection saves $150 or $151",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "Charlotte to Denver on February 10th for the district center visits. I'd really prefer the nonstop if I can have it.",
+  "trip": {
+    "traveller_name": "Andre Wallace",
+    "traveller_title": "District Manager, Mountain District",
+    "job_level": "MANAGER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "CLT",
+    "destination": "DEN",
+    "travel_date": "2027-02-10",
+    "business_travel_date": "2027-02-10",
+    "return_date": "",
+    "booking_date": "2027-01-06",
+    "purpose": "Mountain district center visits",
+    "purpose_kind": "CENTER_VISIT",
+    "requested_cabin": "ECONOMY",
+    "requested_routing": "NONSTOP",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "CLT",
+        "destination": "DEN",
+        "date": "2027-02-10",
+        "return_date": "",
+        "background": 0,
+        "flights": {
+          "nonstop": {
+            "carrier": "AA",
+            "depart": "09:00",
+            "minutes": [
+              200
+            ]
+          },
+          "chicago": {
+            "carrier": "UA",
+            "via": [
+              "ORD"
+            ],
+            "depart": "09:00",
+            "minutes": [
+              110,
+              145
+            ],
+            "layovers": [
+              45
+            ]
+          }
+        },
+        "offers": [
+          {
+            "slot": "nonstop-economy",
+            "flight": "nonstop",
+            "cabin": "ECONOMY",
+            "fare_cents": 38600
+          },
+          {
+            "slot": "chicago-economy",
+            "flight": "chicago",
+            "cabin": "ECONOMY",
+            "fare_cents": 23600
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "chicago-economy",
+      "nonstop-economy"
+    ],
+    "cabins": [
+      "ECONOMY"
+    ],
+    "reason_codes": [
+      "ALTERNATE_ROUTE_WITHIN_MARGIN",
+      "COST_SAVINGS",
+      "LOWEST_FARE"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE",
+      "CONNECTING_FLIGHTS",
+      "POLICY_GENERAL"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        135,
+        137
+      ],
+      "sha256": "e551a4160795b18a3a602d207426e3f2b8fef8f4887155a434bcfb1cda7bc13b",
+      "quote": "The lowest logical coach airfare is to be used when traveling on company business.",
+      "why": "the default: the lowest logical coach airfare"
+    },
+    {
+      "lines": [
+        44,
+        45
+      ],
+      "sha256": "943dcb1e7c67ee2011268725224e0ac4108ed188fa2c1eb7238c6a5f195c7400",
+      "quote": "Book travel in advance and in such a manner to allow for the lowest costs.",
+      "why": "the general duty: book for the lowest costs"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    },
+    {
+      "lines": [
+        129,
+        133
+      ],
+      "sha256": "6126d9fcfb83671f96784977980c441a9fc838d20ce423453826b86199f23274",
+      "quote": "• Team Members are expected to book flights with one connection per trip if that is the least expensive option. For Example, Team Members should accept a connecting flight when the savings exceed $150 and the connection does not cause a delay of more than two hours travel time.",
+      "why": "one connection when least expensive; accept it when it saves over $150 and delays no more than two hours"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "The connection saves exactly $150, which does not 'exceed $150' (lines 129-133). Outside the example the text only 'expects' the least expensive one-connection option, so for a traveller who asks for the nonstop both the requested nonstop and the cheaper connection are accepted (soft rule, accept set)."
+}

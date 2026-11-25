@@ -1,0 +1,170 @@
+{
+  "id": "oak-lantern",
+  "category": "multi_rule",
+  "overlays": [],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "Newark to Honolulu on March 2nd for the Hawaii center openings. It's about eleven hours in the air, so I'd like business class.",
+  "trip": {
+    "traveller_name": "Rachel Kim",
+    "traveller_title": "Manager, New Center Openings",
+    "job_level": "MANAGER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "EWR",
+    "destination": "HNL",
+    "travel_date": "2027-03-02",
+    "business_travel_date": "2027-03-02",
+    "return_date": "",
+    "booking_date": "2027-01-19",
+    "purpose": "New center openings in Honolulu",
+    "purpose_kind": "CENTER_VISIT",
+    "requested_cabin": "BUSINESS",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "EWR",
+        "destination": "HNL",
+        "date": "2027-03-02",
+        "return_date": "",
+        "background": 0,
+        "flights": {
+          "morning": {
+            "carrier": "UA",
+            "depart": "08:00",
+            "minutes": [
+              655
+            ]
+          },
+          "late": {
+            "carrier": "UA",
+            "depart": "10:30",
+            "minutes": [
+              660
+            ]
+          }
+        },
+        "offers": [
+          {
+            "slot": "morning-economy",
+            "flight": "morning",
+            "cabin": "ECONOMY",
+            "fare_cents": 68400
+          },
+          {
+            "slot": "morning-business",
+            "flight": "morning",
+            "cabin": "BUSINESS",
+            "fare_cents": 289000
+          },
+          {
+            "slot": "late-economy",
+            "flight": "late",
+            "cabin": "ECONOMY",
+            "fare_cents": 71900
+          },
+          {
+            "slot": "late-business",
+            "flight": "late",
+            "cabin": "BUSINESS",
+            "fare_cents": 301000
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "morning-economy"
+    ],
+    "cabins": [
+      "ECONOMY"
+    ],
+    "reason_codes": [
+      "LONG_FLIGHT_CONDITION_NOT_MET",
+      "LOWEST_FARE",
+      "UPGRADE_NOT_ELIGIBLE"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE",
+      "DOMESTIC_MEALS",
+      "POLICY_GENERAL"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        154,
+        156
+      ],
+      "sha256": "11dbcf767acc591d1fea76de5b563e33e9a4197ce34082c71af7406cc1ce6295",
+      "quote": "Business class may be used for international travel, if actual flying time is more than 6 hours, not including connections or layovers.",
+      "why": "business class: international, over 6 hours flying"
+    },
+    {
+      "lines": [
+        298,
+        305
+      ],
+      "sha256": "bf44b06ac79b823b0cf5411205bd9597a42b0baa5403a1d4cb16fa4843c63fb2",
+      "quote": "High Cost Cities: Alaska: Anchorage and Fairbanks California: San Francisco District of Columbia (surrounding area) Hawaii: Honolulu New York: New York City (surrounding area) Washington: Seattle Canada: Toronto and Vancouver",
+      "why": "the domestic meals list of high cost cities names Honolulu, Toronto and Vancouver"
+    },
+    {
+      "lines": [
+        135,
+        137
+      ],
+      "sha256": "e551a4160795b18a3a602d207426e3f2b8fef8f4887155a434bcfb1cda7bc13b",
+      "quote": "The lowest logical coach airfare is to be used when traveling on company business.",
+      "why": "the default: the lowest logical coach airfare"
+    },
+    {
+      "lines": [
+        44,
+        45
+      ],
+      "sha256": "943dcb1e7c67ee2011268725224e0ac4108ed188fa2c1eb7238c6a5f195c7400",
+      "quote": "Book travel in advance and in such a manner to allow for the lowest costs.",
+      "why": "the general duty: book for the lowest costs"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "Over 6 hours of flying, but business class is only for international travel (lines 154-156). Hawaii is a US state and the handbook lists Honolulu among its domestic high cost cities (lines 298-305): domestic, so the lowest logical coach airfare."
+}

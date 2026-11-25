@@ -1,0 +1,176 @@
+{
+  "id": "quince-harbor",
+  "category": "hidden_clause",
+  "overlays": [
+    "personal_travel",
+    "outside_air_section",
+    "date_arithmetic"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "My client workshop in Seattle is Monday the 15th, but I'd like to fly up from Denver on Friday the 12th and spend the long weekend with my sister. I know Friday costs more than flying Monday morning; I'll pay the difference.",
+  "trip": {
+    "traveller_name": "Brian Holloway",
+    "traveller_title": "Account Manager",
+    "job_level": "TEAM_MEMBER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "DEN",
+    "destination": "SEA",
+    "travel_date": "2027-02-12",
+    "business_travel_date": "2027-02-15",
+    "return_date": "",
+    "booking_date": "2027-01-18",
+    "purpose": "Client workshop in Seattle on Monday, with a personal weekend before it",
+    "purpose_kind": "CUSTOMER_VISIT",
+    "requested_cabin": "ECONOMY",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": true,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "DEN",
+        "destination": "SEA",
+        "date": "2027-02-12",
+        "return_date": "",
+        "background": 0,
+        "flights": {
+          "alaska": {
+            "carrier": "AS",
+            "depart": "09:00"
+          },
+          "united": {
+            "carrier": "UA",
+            "depart": "12:30"
+          },
+          "southwest": {
+            "carrier": "WN",
+            "depart": "15:10"
+          }
+        },
+        "offers": [
+          {
+            "slot": "alaska-friday",
+            "flight": "alaska",
+            "cabin": "ECONOMY",
+            "fare_cents": 28900
+          },
+          {
+            "slot": "united-friday",
+            "flight": "united",
+            "cabin": "ECONOMY",
+            "fare_cents": 31400
+          },
+          {
+            "slot": "southwest-friday",
+            "flight": "southwest",
+            "cabin": "ECONOMY",
+            "fare_cents": 30200
+          }
+        ]
+      },
+      {
+        "name": "business-only",
+        "origin": "DEN",
+        "destination": "SEA",
+        "date": "2027-02-15",
+        "return_date": "",
+        "background": 0,
+        "flights": {
+          "alaska": {
+            "carrier": "AS",
+            "depart": "07:00"
+          },
+          "united": {
+            "carrier": "UA",
+            "depart": "08:30"
+          }
+        },
+        "offers": [
+          {
+            "slot": "alaska-monday",
+            "flight": "alaska",
+            "cabin": "ECONOMY",
+            "fare_cents": 19800
+          },
+          {
+            "slot": "united-monday",
+            "flight": "united",
+            "cabin": "ECONOMY",
+            "fare_cents": 21500
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "alaska-friday"
+    ],
+    "cabins": [
+      "ECONOMY"
+    ],
+    "reason_codes": [
+      "LOWEST_FARE",
+      "PERSONAL_COST_PAID_BY_TRAVELER"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "PERSONAL_WITH_BUSINESS"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        526,
+        531
+      ],
+      "sha256": "dd0e3ff3a8bd08f8ab89bd28a65fca89217103b77f6ce128c2db085c27e3ef7f",
+      "quote": "Many Team Members elect to combine personal travel with approved business travel. • FXO pays the airfare of the least expensive routing for the business trip as if no personal travel were included. • Any additional cost, including change fees for personal reasons, is the responsibility of the Team Member.",
+      "why": "FXO pays the business-only routing; the traveller pays any additional cost"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [
+    {
+      "lines": [
+        825,
+        826
+      ],
+      "quote": "Any additional change fees for personal travel combined with business travel",
+      "why": "change fees, not the fare"
+    }
+  ],
+  "design_notes": "Personal days combined with approved business travel (lines 526-531): FXO pays the least expensive business-only routing ($198 on Monday) and the traveller pays the $91 more of the cheapest Friday fare, which is the ticket booked. Both dates are pinned searches."
+}

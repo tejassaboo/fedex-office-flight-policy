@@ -1,0 +1,152 @@
+{
+  "id": "lark-meadow",
+  "category": "multi_rule",
+  "overlays": [
+    "dearer_option"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "Atlanta to Seattle on January 26th for the Northwest store-design rollout. I'm six weeks out from hip surgery and my VP's certification for a first class seat is already with the travel agency. First class, please.",
+  "trip": {
+    "traveller_name": "Lorraine Fitch",
+    "traveller_title": "Director, Store Design",
+    "job_level": "DIRECTOR",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "ATL",
+    "destination": "SEA",
+    "travel_date": "2027-01-26",
+    "business_travel_date": "2027-01-26",
+    "return_date": "",
+    "booking_date": "2026-12-21",
+    "purpose": "Northwest store-design rollout",
+    "purpose_kind": "INTERNAL_MEETING",
+    "requested_cabin": "FIRST",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": true,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      },
+      {
+        "role": "VICE_PRESIDENT",
+        "name": "Howard Simms",
+        "subject": "FIRST_CLASS_CERTIFICATION",
+        "covers": "Certifies that recovery from hip surgery prevents the traveller from using coach seating",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "ATL",
+        "destination": "SEA",
+        "date": "2027-01-26",
+        "return_date": "",
+        "background": 2,
+        "flights": {
+          "delta": {
+            "carrier": "DL",
+            "depart": "08:10"
+          },
+          "alaska": {
+            "carrier": "AS",
+            "depart": "10:40"
+          }
+        },
+        "offers": [
+          {
+            "slot": "delta-economy",
+            "flight": "delta",
+            "cabin": "ECONOMY",
+            "fare_cents": 34500
+          },
+          {
+            "slot": "delta-first",
+            "flight": "delta",
+            "cabin": "FIRST",
+            "fare_cents": 112000
+          },
+          {
+            "slot": "alaska-economy",
+            "flight": "alaska",
+            "cabin": "ECONOMY",
+            "fare_cents": 33200
+          },
+          {
+            "slot": "alaska-first",
+            "flight": "alaska",
+            "cabin": "FIRST",
+            "fare_cents": 98000
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "alaska-first"
+    ],
+    "cabins": [
+      "FIRST"
+    ],
+    "reason_codes": [
+      "MEDICAL_NEED"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE",
+      "VICE_PRESIDENT"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        139,
+        144
+      ],
+      "sha256": "71224041e2815a9090920cee480367dec8739b59b01591bfc56ccd9158916555",
+      "quote": "• Team Members who are pre-certified may fly first class if their physical size or physician approved health condition (e.g., recent surgery) prohibits use of coach class service. Requests for such certification must be approved by their VP or higher level management and submitted to Global Travel before a flight can be booked in a higher class of service.",
+      "why": "first class for a pre-certified physical need, certified by the VP or higher and sent to Global Travel before booking"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [
+    {
+      "lines": [
+        113,
+        115
+      ],
+      "quote": "Team Members who have physical disabilities should notify Global",
+      "why": "the disabilities section: notifying the agency, not the cabin"
+    }
+  ],
+  "design_notes": "A Director is below 'Vice Presidents and above' (line 138), but a Team Member pre-certified for a physician-approved health condition may fly first class, the certification approved by the VP and submitted to Global Travel before booking (lines 139-144): both hold. The cheapest first-class fare."
+}

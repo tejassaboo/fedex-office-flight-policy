@@ -1,0 +1,153 @@
+{
+  "id": "plume-sorrel",
+  "category": "hidden_clause",
+  "overlays": [
+    "outside_air_section",
+    "dearer_option"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "Chicago O'Hare to Los Angeles on February 25th. Gloria, our managing director, signed a documented policy exception so I can fly first on this trip: I'm presenting to the board straight off the plane. Please book first.",
+  "trip": {
+    "traveller_name": "Nadia Petrov",
+    "traveller_title": "Senior Manager, Strategic Accounts",
+    "job_level": "SENIOR_MANAGER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "ORD",
+    "destination": "LAX",
+    "travel_date": "2027-02-25",
+    "business_travel_date": "2027-02-25",
+    "return_date": "",
+    "booking_date": "2027-01-21",
+    "purpose": "Board presentation in Los Angeles",
+    "purpose_kind": "INTERNAL_MEETING",
+    "requested_cabin": "FIRST",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      },
+      {
+        "role": "MANAGING_DIRECTOR",
+        "name": "Gloria Hughes",
+        "subject": "POLICY_EXCEPTION",
+        "covers": "A documented exception to the travel policy: first class on this flight",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "ORD",
+        "destination": "LAX",
+        "date": "2027-02-25",
+        "return_date": "",
+        "background": 2,
+        "flights": {
+          "united": {
+            "carrier": "UA",
+            "depart": "07:30"
+          },
+          "american": {
+            "carrier": "AA",
+            "depart": "09:45"
+          }
+        },
+        "offers": [
+          {
+            "slot": "united-economy",
+            "flight": "united",
+            "cabin": "ECONOMY",
+            "fare_cents": 31800
+          },
+          {
+            "slot": "united-first",
+            "flight": "united",
+            "cabin": "FIRST",
+            "fare_cents": 102500
+          },
+          {
+            "slot": "american-economy",
+            "flight": "american",
+            "cabin": "ECONOMY",
+            "fare_cents": 30400
+          },
+          {
+            "slot": "american-first",
+            "flight": "american",
+            "cabin": "FIRST",
+            "fare_cents": 99000
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "american-first"
+    ],
+    "cabins": [
+      "FIRST"
+    ],
+    "reason_codes": [
+      "POLICY_EXCEPTION_APPROVED"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "MANAGING_DIRECTOR",
+      "NONE"
+    ],
+    "clauses": [
+      "ACCOUNTABILITY",
+      "EXCEPTIONS"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        77,
+        80
+      ],
+      "sha256": "84468428ae7110be6d6aa749696ad88f49d208d63e6a747d26ba04863ac65a4b",
+      "quote": "• Exceptions to this policy that are less than $10,000 must be approved by the Team Member's department MD. • Exceptions that are greater than $10,000 must be approved by the Team Member's department VP.",
+      "why": "exceptions under $10,000 are approved by the department MD"
+    },
+    {
+      "lines": [
+        932,
+        934
+      ],
+      "sha256": "45ccda0673b37d135d0332251ae0d49f5d99983f4922f4c3e238f770145b1122",
+      "quote": "4.2.1 Senior Vice President, Vice President and/or Managing Director • Approves exceptions requests as noted in policy",
+      "why": "the SVP, VP and/or MD approve exception requests"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "Not a VP and no certification, but the air section is not the whole story: exceptions to the policy under $10,000 are approved by the Team Member's department MD (lines 77-78, section 3.1.2), and the MD approves exception requests (lines 932-934). The first fare ($990) and its difference from coach are both far under $10,000."
+}

@@ -1,0 +1,152 @@
+{
+  "id": "mallow-pier",
+  "category": "multi_rule",
+  "overlays": [
+    "dearer_option"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "Los Angeles to New York JFK on the red-eye on February 17th for the investor-day setup. I'd love first class on this one and I'll pay the difference out of my own pocket.",
+  "trip": {
+    "traveller_name": "Tomas Reyes",
+    "traveller_title": "Manager, Corporate Events",
+    "job_level": "MANAGER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "LAX",
+    "destination": "JFK",
+    "travel_date": "2027-02-17",
+    "business_travel_date": "2027-02-17",
+    "return_date": "",
+    "booking_date": "2027-01-13",
+    "purpose": "Investor-day event setup in New York",
+    "purpose_kind": "INTERNAL_MEETING",
+    "requested_cabin": "FIRST",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": true,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "LAX",
+        "destination": "JFK",
+        "date": "2027-02-17",
+        "return_date": "",
+        "background": 2,
+        "flights": {
+          "american": {
+            "carrier": "AA",
+            "depart": "22:15"
+          },
+          "delta": {
+            "carrier": "DL",
+            "depart": "23:00"
+          }
+        },
+        "offers": [
+          {
+            "slot": "american-economy",
+            "flight": "american",
+            "cabin": "ECONOMY",
+            "fare_cents": 35800
+          },
+          {
+            "slot": "american-first",
+            "flight": "american",
+            "cabin": "FIRST",
+            "fare_cents": 121000
+          },
+          {
+            "slot": "delta-economy",
+            "flight": "delta",
+            "cabin": "ECONOMY",
+            "fare_cents": 37200
+          },
+          {
+            "slot": "delta-first",
+            "flight": "delta",
+            "cabin": "FIRST",
+            "fare_cents": 116500
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "delta-first"
+    ],
+    "cabins": [
+      "FIRST"
+    ],
+    "reason_codes": [
+      "TRAVELER_PAYS_UPGRADE"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        145,
+        149
+      ],
+      "sha256": "8174139e0d8ce2f9289ee4e6e9d8313102f3d1d183d1c995a1120f1efed7442f",
+      "quote": "• Team Members may upgrade to first class by personally paying the cost of the upgrade (i.e., difference between first class and the best available coach or, when appropriate, business class). The difference is calculated by Global Travel. Payment must be made by the team member at the time of ticketing.",
+      "why": "a Team Member may upgrade to first by paying the difference at ticketing"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [
+    {
+      "lines": [
+        174,
+        175
+      ],
+      "quote": "Team Members will not be reimbursed for fees charged for upgrades to a higher class of service or for segment upgrades.",
+      "why": "the company does not pay upgrade fees: the traveller does"
+    },
+    {
+      "lines": [
+        815,
+        815
+      ],
+      "quote": "Upgrades on airline tickets, except for Vice Presidents and above",
+      "why": "upgrades are not reimbursed; it does not stop a traveller paying their own"
+    }
+  ],
+  "design_notes": "Not a VP, but 'Team Members may upgrade to first class by personally paying the cost of the upgrade' at ticketing (lines 145-149): the cheapest first-class fare, the traveller paying the difference from coach. The non-reimbursement of upgrades (lines 174-175, 815) does not stop the traveller paying their own."
+}

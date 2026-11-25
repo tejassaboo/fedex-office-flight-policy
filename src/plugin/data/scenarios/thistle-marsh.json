@@ -1,0 +1,112 @@
+{
+  "id": "thistle-marsh",
+  "category": "refusal",
+  "overlays": [
+    "outside_air_section"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "Please book a flight for Marco Bellini from our press supplier, Charlotte to Chicago O'Hare on January 20th, so he can join our install review. We'd like to cover his ticket.",
+  "trip": {
+    "traveller_name": "Marco Bellini",
+    "traveller_title": "Field Engineer, Halvorsen Press Systems (supplier)",
+    "job_level": "NOT_EMPLOYEE",
+    "passenger": "SUPPLIER",
+    "accompanies": "Jill Sanders, Production Manager",
+    "home_country": "US",
+    "origin": "CLT",
+    "destination": "ORD",
+    "travel_date": "2027-01-20",
+    "business_travel_date": "2027-01-20",
+    "return_date": "",
+    "booking_date": "2026-12-16",
+    "purpose": "Press install review with the Chicago production team",
+    "purpose_kind": "SUPPLIER_VISIT",
+    "requested_cabin": "ECONOMY",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "CLT",
+        "destination": "ORD",
+        "date": "2027-01-20",
+        "return_date": "",
+        "background": 3,
+        "flights": {
+          "american": {
+            "carrier": "AA",
+            "depart": "07:45"
+          },
+          "united": {
+            "carrier": "UA",
+            "depart": "10:20"
+          }
+        },
+        "offers": [
+          {
+            "slot": "american-economy",
+            "flight": "american",
+            "cabin": "ECONOMY",
+            "fare_cents": 24300
+          },
+          {
+            "slot": "united-economy",
+            "flight": "united",
+            "cabin": "ECONOMY",
+            "fare_cents": 26100
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "REFUSE",
+    "offer_slots": [],
+    "cabins": [
+      "NONE"
+    ],
+    "reason_codes": [
+      "BUSINESS_GUEST_NOT_PREPAID",
+      "OUTSIDE_POLICY_SCOPE"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "BUSINESS_GUESTS"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        538,
+        543
+      ],
+      "sha256": "3c9d70c9b11d255b7295c98bda2a3cb3a4673d936f448866f089c6e05ec5b59f",
+      "quote": "Air travel expenses for a business guest or supplier traveling accompanied or unaccompanied by a Team Member will not be paid in advance by FXO. If the business guest is a supplier, consultant or distributor whose expenses are to be reimbursed, an invoice must be sent to FedEx Office and will be paid in the normal manner by the Disbursements department.",
+      "why": "a business guest's or supplier's air travel is not paid in advance; suppliers invoice"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "Air travel expenses for a business guest or supplier 'will not be paid in advance by FXO' (lines 538-540); a supplier whose expenses are reimbursed sends an invoice (lines 541-543). The company buys no ticket. The visit's approval on file is not what the refusal uses (NONE or the approving manager)."
+}

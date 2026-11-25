@@ -1,0 +1,158 @@
+{
+  "id": "briar-cove",
+  "category": "easy",
+  "overlays": [
+    "multi_leg"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "Can you book me Boston to Phoenix on February 2nd for the customer kickoff? I don't mind connecting if it saves real money.",
+  "trip": {
+    "traveller_name": "Owen Pruitt",
+    "traveller_title": "Account Executive",
+    "job_level": "TEAM_MEMBER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "BOS",
+    "destination": "PHX",
+    "travel_date": "2027-02-02",
+    "business_travel_date": "2027-02-02",
+    "return_date": "",
+    "booking_date": "2026-12-29",
+    "purpose": "Customer kickoff meeting in Phoenix",
+    "purpose_kind": "CUSTOMER_VISIT",
+    "requested_cabin": "ECONOMY",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "BOS",
+        "destination": "PHX",
+        "date": "2027-02-02",
+        "return_date": "",
+        "background": 0,
+        "flights": {
+          "nonstop": {
+            "carrier": "AA",
+            "depart": "08:00",
+            "minutes": [
+              300
+            ]
+          },
+          "denver": {
+            "carrier": "UA",
+            "via": [
+              "DEN"
+            ],
+            "depart": "08:00",
+            "minutes": [
+              235,
+              95
+            ],
+            "layovers": [
+              65
+            ]
+          }
+        },
+        "offers": [
+          {
+            "slot": "nonstop-economy",
+            "flight": "nonstop",
+            "cabin": "ECONOMY",
+            "fare_cents": 41800
+          },
+          {
+            "slot": "denver-economy",
+            "flight": "denver",
+            "cabin": "ECONOMY",
+            "fare_cents": 24800
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "denver-economy"
+    ],
+    "cabins": [
+      "ECONOMY"
+    ],
+    "reason_codes": [
+      "ALTERNATE_ROUTE_TOO_EXPENSIVE",
+      "COST_SAVINGS",
+      "LOWEST_FARE"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE",
+      "CONNECTING_FLIGHTS",
+      "POLICY_GENERAL"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        135,
+        137
+      ],
+      "sha256": "e551a4160795b18a3a602d207426e3f2b8fef8f4887155a434bcfb1cda7bc13b",
+      "quote": "The lowest logical coach airfare is to be used when traveling on company business.",
+      "why": "the default: the lowest logical coach airfare"
+    },
+    {
+      "lines": [
+        44,
+        45
+      ],
+      "sha256": "943dcb1e7c67ee2011268725224e0ac4108ed188fa2c1eb7238c6a5f195c7400",
+      "quote": "Book travel in advance and in such a manner to allow for the lowest costs.",
+      "why": "the general duty: book for the lowest costs"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    },
+    {
+      "lines": [
+        129,
+        133
+      ],
+      "sha256": "6126d9fcfb83671f96784977980c441a9fc838d20ce423453826b86199f23274",
+      "quote": "• Team Members are expected to book flights with one connection per trip if that is the least expensive option. For Example, Team Members should accept a connecting flight when the savings exceed $150 and the connection does not cause a delay of more than two hours travel time.",
+      "why": "one connection when least expensive; accept it when it saves over $150 and delays no more than two hours"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "The one-stop through Denver saves $170 against the nonstop and, leaving at the same time, arrives 95 minutes later (elapsed 395 against 300): it is the least expensive option and inside the example of lines 129-133, so it is the lowest logical coach airfare."
+}

@@ -1,0 +1,179 @@
+{
+  "id": "willow-cairn",
+  "category": "flag",
+  "overlays": [
+    "unclear_phrase",
+    "outside_air_section"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [
+    "cinder-heath",
+    "oak-lantern"
+  ],
+  "ambiguity_note": {
+    "phrase": "international travel",
+    "readings": [
+      "a flight from the US to Canada crosses a border, so it is international travel: business class may be used",
+      "the handbook files Toronto and Vancouver under domestic travel and groups the US with Canada, so the trip is domestic: coach"
+    ]
+  },
+  "request": "Miami to Vancouver on February 18th for the Canadian franchise partners' meeting. It's a six-and-a-quarter-hour nonstop, so I'd like business class.",
+  "trip": {
+    "traveller_name": "Jordan Pierce",
+    "traveller_title": "Manager, Franchise Partnerships",
+    "job_level": "MANAGER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "MIA",
+    "destination": "YVR",
+    "travel_date": "2027-02-18",
+    "business_travel_date": "2027-02-18",
+    "return_date": "",
+    "booking_date": "2027-01-14",
+    "purpose": "Canadian franchise partners' meeting in Vancouver",
+    "purpose_kind": "INTERNAL_MEETING",
+    "requested_cabin": "BUSINESS",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "MIA",
+        "destination": "YVR",
+        "date": "2027-02-18",
+        "return_date": "",
+        "background": 0,
+        "flights": {
+          "aircanada": {
+            "carrier": "AC",
+            "depart": "09:15",
+            "minutes": [
+              375
+            ]
+          },
+          "american": {
+            "carrier": "AA",
+            "depart": "12:40",
+            "minutes": [
+              375
+            ]
+          }
+        },
+        "offers": [
+          {
+            "slot": "aircanada-economy",
+            "flight": "aircanada",
+            "cabin": "ECONOMY",
+            "fare_cents": 48600
+          },
+          {
+            "slot": "aircanada-business",
+            "flight": "aircanada",
+            "cabin": "BUSINESS",
+            "fare_cents": 186000
+          },
+          {
+            "slot": "american-economy",
+            "flight": "american",
+            "cabin": "ECONOMY",
+            "fare_cents": 51200
+          },
+          {
+            "slot": "american-business",
+            "flight": "american",
+            "cabin": "BUSINESS",
+            "fare_cents": 199000
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "FLAG_FOR_APPROVAL",
+    "offer_slots": [
+      "aircanada-business"
+    ],
+    "cabins": [
+      "BUSINESS"
+    ],
+    "reason_codes": [
+      "UNCLEAR_POLICY_TEXT"
+    ],
+    "approvers": [
+      "MANAGING_DIRECTOR",
+      "NOT_NAMED"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE",
+      "DOMESTIC_MEALS"
+    ],
+    "unclear_phrase": "international travel"
+  },
+  "must_keep": [
+    {
+      "lines": [
+        154,
+        156
+      ],
+      "sha256": "11dbcf767acc591d1fea76de5b563e33e9a4197ce34082c71af7406cc1ce6295",
+      "quote": "Business class may be used for international travel, if actual flying time is more than 6 hours, not including connections or layovers.",
+      "why": "business class: international, over 6 hours flying"
+    },
+    {
+      "lines": [
+        298,
+        305
+      ],
+      "sha256": "bf44b06ac79b823b0cf5411205bd9597a42b0baa5403a1d4cb16fa4843c63fb2",
+      "quote": "High Cost Cities: Alaska: Anchorage and Fairbanks California: San Francisco District of Columbia (surrounding area) Hawaii: Honolulu New York: New York City (surrounding area) Washington: Seattle Canada: Toronto and Vancouver",
+      "why": "the domestic meals list of high cost cities names Honolulu, Toronto and Vancouver"
+    },
+    {
+      "lines": [
+        515,
+        516
+      ],
+      "sha256": "063362e6e5c2588280f00e5fe9980b1c9d31a118069641edd42871e18ef4682e",
+      "quote": "Team Members are reimbursed for rental car insurance when the car is used outside the US and Canada. This includes Puerto Rico.",
+      "why": "the car-insurance rule groups the US and Canada together"
+    },
+    {
+      "lines": [
+        77,
+        80
+      ],
+      "sha256": "84468428ae7110be6d6aa749696ad88f49d208d63e6a747d26ba04863ac65a4b",
+      "quote": "• Exceptions to this policy that are less than $10,000 must be approved by the Team Member's department MD. • Exceptions that are greater than $10,000 must be approved by the Team Member's department VP.",
+      "why": "exceptions under $10,000 are approved by the department MD"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "375-minute nonstops: over 6 hours of flying. Business class is for 'international travel' (lines 154-156), which the handbook never defines; it lists Toronto and Vancouver among the high cost cities of 3.6.1 Domestic Travel Meals (lines 298-305) and groups the US and Canada together (lines 515-516). A flight to Canada is international on one reading and treated as domestic on the other: hold the cheapest business fare."
+}

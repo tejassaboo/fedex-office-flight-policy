@@ -1,0 +1,146 @@
+{
+  "id": "yarrow-glint",
+  "category": "flag",
+  "overlays": [
+    "approval_required"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [
+    "lark-meadow",
+    "nettle-bay"
+  ],
+  "ambiguity_note": "none: an approval by the VP or higher is required and missing; the text is clear",
+  "request": "Dallas to Boston on February 11th for the New England center reviews. After my back surgery I can't sit in coach, and my director signed the certification for a first class seat; it's with the travel agency. First class, please.",
+  "trip": {
+    "traveller_name": "Gregory Nash",
+    "traveller_title": "Senior Manager, Center Operations",
+    "job_level": "SENIOR_MANAGER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "DFW",
+    "destination": "BOS",
+    "travel_date": "2027-02-11",
+    "business_travel_date": "2027-02-11",
+    "return_date": "",
+    "booking_date": "2027-01-07",
+    "purpose": "New England center operations reviews",
+    "purpose_kind": "CENTER_VISIT",
+    "requested_cabin": "FIRST",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": true,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      },
+      {
+        "role": "DIRECTOR",
+        "name": "Monica Feld",
+        "subject": "FIRST_CLASS_CERTIFICATION",
+        "covers": "Certifies that recovery from back surgery prevents the traveller from using coach seating",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "DFW",
+        "destination": "BOS",
+        "date": "2027-02-11",
+        "return_date": "",
+        "background": 2,
+        "flights": {
+          "american": {
+            "carrier": "AA",
+            "depart": "07:45"
+          },
+          "delta": {
+            "carrier": "DL",
+            "depart": "10:05"
+          }
+        },
+        "offers": [
+          {
+            "slot": "american-economy",
+            "flight": "american",
+            "cabin": "ECONOMY",
+            "fare_cents": 29800
+          },
+          {
+            "slot": "american-first",
+            "flight": "american",
+            "cabin": "FIRST",
+            "fare_cents": 89500
+          },
+          {
+            "slot": "delta-economy",
+            "flight": "delta",
+            "cabin": "ECONOMY",
+            "fare_cents": 31200
+          },
+          {
+            "slot": "delta-first",
+            "flight": "delta",
+            "cabin": "FIRST",
+            "fare_cents": 94000
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "FLAG_FOR_APPROVAL",
+    "offer_slots": [
+      "american-first"
+    ],
+    "cabins": [
+      "FIRST"
+    ],
+    "reason_codes": [
+      "APPROVAL_REQUIRED",
+      "MEDICAL_NEED"
+    ],
+    "approvers": [
+      "SENIOR_VICE_PRESIDENT",
+      "VICE_PRESIDENT"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        139,
+        144
+      ],
+      "sha256": "71224041e2815a9090920cee480367dec8739b59b01591bfc56ccd9158916555",
+      "quote": "• Team Members who are pre-certified may fly first class if their physical size or physician approved health condition (e.g., recent surgery) prohibits use of coach class service. Requests for such certification must be approved by their VP or higher level management and submitted to Global Travel before a flight can be booked in a higher class of service.",
+      "why": "first class for a pre-certified physical need, certified by the VP or higher and sent to Global Travel before booking"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "A pre-certified physical need allows first class, but the certification 'must be approved by their VP or higher level management' before booking (lines 142-144); a Director signed it. Hold the cheapest first-class fare for the VP (or higher). Approval required, not 'no compliant offer'."
+}

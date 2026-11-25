@@ -1,0 +1,174 @@
+{
+  "id": "vale-pewter",
+  "category": "flag",
+  "overlays": [
+    "multi_leg",
+    "unclear_phrase"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [
+    "cinder-heath",
+    "gull-ridge"
+  ],
+  "ambiguity_note": {
+    "phrase": "not including connections or layovers",
+    "readings": [
+      "the flights' minutes are added and only the ground time between them is left out: 440 minutes, business class may be used",
+      "each flight is measured on its own ('connections' are not combined): no flight is over 360 minutes, coach"
+    ]
+  },
+  "request": "Denver to Bogota on March 4th for the Latin America franchise launch. It's over seven hours of flying with the Miami connection, so business class please.",
+  "trip": {
+    "traveller_name": "Camila Restrepo",
+    "traveller_title": "Senior Manager, Franchise Development",
+    "job_level": "SENIOR_MANAGER",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "DEN",
+    "destination": "BOG",
+    "travel_date": "2027-03-04",
+    "business_travel_date": "2027-03-04",
+    "return_date": "",
+    "booking_date": "2027-01-28",
+    "purpose": "Franchise launch in Bogota",
+    "purpose_kind": "CONFERENCE",
+    "requested_cabin": "BUSINESS",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "DEN",
+        "destination": "BOG",
+        "date": "2027-03-04",
+        "return_date": "",
+        "background": 0,
+        "flights": {
+          "early": {
+            "carrier": "AA",
+            "via": [
+              "MIA"
+            ],
+            "depart": "06:30",
+            "minutes": [
+              235,
+              205
+            ],
+            "layovers": [
+              75
+            ]
+          },
+          "late": {
+            "carrier": "AA",
+            "via": [
+              "MIA"
+            ],
+            "depart": "11:45",
+            "minutes": [
+              235,
+              205
+            ],
+            "layovers": [
+              80
+            ]
+          }
+        },
+        "offers": [
+          {
+            "slot": "early-economy",
+            "flight": "early",
+            "cabin": "ECONOMY",
+            "fare_cents": 52800
+          },
+          {
+            "slot": "early-business",
+            "flight": "early",
+            "cabin": "BUSINESS",
+            "fare_cents": 198000
+          },
+          {
+            "slot": "late-economy",
+            "flight": "late",
+            "cabin": "ECONOMY",
+            "fare_cents": 55400
+          },
+          {
+            "slot": "late-business",
+            "flight": "late",
+            "cabin": "BUSINESS",
+            "fare_cents": 212000
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "FLAG_FOR_APPROVAL",
+    "offer_slots": [
+      "early-business"
+    ],
+    "cabins": [
+      "BUSINESS"
+    ],
+    "reason_codes": [
+      "UNCLEAR_POLICY_TEXT"
+    ],
+    "approvers": [
+      "MANAGING_DIRECTOR",
+      "NOT_NAMED"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE"
+    ],
+    "unclear_phrase": "not including connections or layovers"
+  },
+  "must_keep": [
+    {
+      "lines": [
+        154,
+        156
+      ],
+      "sha256": "11dbcf767acc591d1fea76de5b563e33e9a4197ce34082c71af7406cc1ce6295",
+      "quote": "Business class may be used for international travel, if actual flying time is more than 6 hours, not including connections or layovers.",
+      "why": "business class: international, over 6 hours flying"
+    },
+    {
+      "lines": [
+        77,
+        80
+      ],
+      "sha256": "84468428ae7110be6d6aa749696ad88f49d208d63e6a747d26ba04863ac65a4b",
+      "quote": "• Exceptions to this policy that are less than $10,000 must be approved by the Team Member's department MD. • Exceptions that are greater than $10,000 must be approved by the Team Member's department VP.",
+      "why": "exceptions under $10,000 are approved by the department MD"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "Only connections through Miami: 235 + 205 = 440 flying minutes, but no single flight over 360. Lines 154-156 count 'actual flying time ... not including connections or layovers': if the flights are added (only ground time left out), business may be used; if 'connections' means the connecting flights are not combined, it may not. Hold the cheapest business fare. No role is named; under the per-flight reading business would be an exception for the department MD (lines 77-78)."
+}

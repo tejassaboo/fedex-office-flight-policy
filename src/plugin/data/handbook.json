@@ -1,0 +1,16 @@
+{
+  "id": "fedex-office-flight-policy",
+  "name": "FedEx Office Travel Policy Flight Booking",
+  "slug": "fedex-office",
+  "title": "FedEx Office Travel and Business Expense Policy, updated January 19, 2015",
+  "frozen_file": "fedex-office_policy.txt",
+  "sha256": "b9e3873fe979709d6ffed446e8ab9ea3d7fa6489d56805e8ec9f29c05b2770f1",
+  "raw_pdf_sha256": "f68158136bed71d681d244769e4bd911770fc064d2c78d77f1e2faaf5cc2b3cf",
+  "words": 7361,
+  "lines": 965,
+  "source": "https://na.eventscloud.com/file_uploads/40defc4eb121cf6410d0136394fa1edd_FedExOfficeTravelandBusinessExpensePolicy.pdf",
+  "frozen_on": "2026-11-24",
+  "scenario_count": 24,
+  "currency": "USD",
+  "background_offers": 0
+}

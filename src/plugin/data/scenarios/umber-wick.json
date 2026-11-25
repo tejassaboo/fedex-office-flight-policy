@@ -1,0 +1,124 @@
+{
+  "id": "umber-wick",
+  "category": "refusal",
+  "overlays": [
+    "personal_travel",
+    "outside_air_section",
+    "multi_traveller"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "My husband wants to come along on my customer trip to San Diego on February 9th. Could you book his flight from Austin on the same day as mine?",
+  "trip": {
+    "traveller_name": "Paul Jensen",
+    "traveller_title": "Husband of Laura Jensen, Regional Sales Manager",
+    "job_level": "NOT_EMPLOYEE",
+    "passenger": "SPOUSE_OR_FAMILY",
+    "accompanies": "Laura Jensen, Regional Sales Manager",
+    "home_country": "US",
+    "origin": "AUS",
+    "destination": "SAN",
+    "travel_date": "2027-02-09",
+    "business_travel_date": "2027-02-09",
+    "return_date": "",
+    "booking_date": "2027-01-08",
+    "purpose": "Accompanying the employee on her customer visits in San Diego",
+    "purpose_kind": "CUSTOMER_VISIT",
+    "requested_cabin": "ECONOMY",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Dana Whitfield",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "AUS",
+        "destination": "SAN",
+        "date": "2027-02-09",
+        "return_date": "",
+        "background": 3,
+        "flights": {
+          "southwest": {
+            "carrier": "WN",
+            "depart": "07:35"
+          },
+          "alaska": {
+            "carrier": "AS",
+            "depart": "10:50"
+          }
+        },
+        "offers": [
+          {
+            "slot": "southwest-economy",
+            "flight": "southwest",
+            "cabin": "ECONOMY",
+            "fare_cents": 21900
+          },
+          {
+            "slot": "alaska-economy",
+            "flight": "alaska",
+            "cabin": "ECONOMY",
+            "fare_cents": 24600
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "REFUSE",
+    "offer_slots": [],
+    "cabins": [
+      "NONE"
+    ],
+    "reason_codes": [
+      "COMPANION_NOT_COVERED",
+      "PERSONAL_TRAVEL_NOT_COVERED"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "DEPENDENT_TRAVEL",
+      "NON_REIMBURSABLE"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        534,
+        536
+      ],
+      "sha256": "9fbb9e8edee0ff1f236729db7b58ebfb7d3acd2e2b89425fdf1e3df35530ccb1",
+      "quote": "Travel expenses for family or significant others are the responsibility of the Team Member and will not be reimbursed by the company, unless communicated in advance for a company-sponsored event.",
+      "why": "family travel is the Team Member's, unless communicated in advance for a company-sponsored event"
+    },
+    {
+      "lines": [
+        827,
+        828
+      ],
+      "sha256": "daecdd895fb1d93841b58755cf2ad6f38b3bd042e5feb8dcf4bb8e9765f87a77",
+      "quote": "• Travel expenses for family or significant others, unless communicated in advance on a company sponsored event",
+      "why": "the non-reimbursable list repeats it"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "Travel expenses for family or significant others are the Team Member's own and are not reimbursed, unless communicated in advance for a company-sponsored event (lines 534-536, 827-828); a customer visit is not one. The company buys no ticket. The employee's trip approval is not what the refusal uses."
+}

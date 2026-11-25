@@ -1,0 +1,151 @@
+{
+  "id": "dover-moss",
+  "category": "easy",
+  "overlays": [
+    "dearer_option"
+  ],
+  "twin_of": "",
+  "twin_fact": "",
+  "flag_twins": [],
+  "ambiguity_note": "none",
+  "request": "New York JFK to San Francisco on January 21st for the West region business review. I'd like first class.",
+  "trip": {
+    "traveller_name": "Patricia Lowell",
+    "traveller_title": "Vice President, Retail Operations",
+    "job_level": "VICE_PRESIDENT",
+    "passenger": "EMPLOYEE",
+    "accompanies": "",
+    "home_country": "US",
+    "origin": "JFK",
+    "destination": "SFO",
+    "travel_date": "2027-01-21",
+    "business_travel_date": "2027-01-21",
+    "return_date": "",
+    "booking_date": "2026-12-17",
+    "purpose": "West region quarterly business review",
+    "purpose_kind": "INTERNAL_MEETING",
+    "requested_cabin": "FIRST",
+    "requested_routing": "ANY",
+    "requested_airline": "",
+    "traveller_pays_difference": false,
+    "physical_need_on_file": false,
+    "told_company_beforehand": false,
+    "sign_offs": [
+      {
+        "role": "APPROVING_MANAGER",
+        "name": "Raymond Cho",
+        "subject": "TRIP",
+        "covers": "The business trip, approved in advance",
+        "on_file_with_agency": true
+      }
+    ],
+    "travelling_with": []
+  },
+  "world": {
+    "searches": [
+      {
+        "name": "main",
+        "origin": "JFK",
+        "destination": "SFO",
+        "date": "2027-01-21",
+        "return_date": "",
+        "background": 3,
+        "flights": {
+          "american": {
+            "carrier": "AA",
+            "depart": "07:00"
+          },
+          "united": {
+            "carrier": "UA",
+            "depart": "09:30"
+          },
+          "delta": {
+            "carrier": "DL",
+            "depart": "12:15"
+          }
+        },
+        "offers": [
+          {
+            "slot": "american-economy",
+            "flight": "american",
+            "cabin": "ECONOMY",
+            "fare_cents": 38900
+          },
+          {
+            "slot": "american-first",
+            "flight": "american",
+            "cabin": "FIRST",
+            "fare_cents": 129000
+          },
+          {
+            "slot": "united-economy",
+            "flight": "united",
+            "cabin": "ECONOMY",
+            "fare_cents": 36500
+          },
+          {
+            "slot": "united-first",
+            "flight": "united",
+            "cabin": "FIRST",
+            "fare_cents": 118500
+          },
+          {
+            "slot": "delta-economy",
+            "flight": "delta",
+            "cabin": "ECONOMY",
+            "fare_cents": 40100
+          },
+          {
+            "slot": "delta-first",
+            "flight": "delta",
+            "cabin": "FIRST",
+            "fare_cents": 124000
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "decision": "BOOK",
+    "offer_slots": [
+      "united-first"
+    ],
+    "cabins": [
+      "FIRST"
+    ],
+    "reason_codes": [
+      "SENIOR_ROLE_ENTITLEMENT"
+    ],
+    "approvers": [
+      "APPROVING_MANAGER",
+      "NONE"
+    ],
+    "clauses": [
+      "AIR_TRAVEL",
+      "CLASS_OF_SERVICE"
+    ],
+    "unclear_phrase": ""
+  },
+  "must_keep": [
+    {
+      "lines": [
+        138,
+        138
+      ],
+      "sha256": "ac3163a26c43e984987eb366b23f826d6b2733afbcab2e5210d8b17c39b27084",
+      "quote": "Vice Presidents and above may fly first class.",
+      "why": "first class for VPs and above"
+    },
+    {
+      "lines": [
+        760,
+        762
+      ],
+      "sha256": "26757c593db149389ab3005a392de9e874a6789c0a4f006a7418b83d00c1a970",
+      "quote": "• Air travel to company-sponsored meetings, functions, center visits, supplier visits or other FXO business travel if booked through Global Travel and approved in advance",
+      "why": "air travel is authorized when booked through Global Travel and approved in advance"
+    }
+  ],
+  "distractors": [],
+  "design_notes": "A Vice President may fly first class (line 138) and asks for it: the cheapest first-class fare."
+}
