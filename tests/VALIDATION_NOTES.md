@@ -48,3 +48,39 @@ juniper-slate, mallow-pier). Optional confirmation run: cinder-heath (the easy c
 
 `uv run pytest -q` (208 passed), `uv run ruff check .`, `uv lock --check`, `check_shared.py`,
 `tools/stock_verify.py` (24 scenarios, 0 failures), stock `nanoagent plugin inspect .` (exit 0).
+
+# Wave 2 re-run (validation_w2b_2026-11-25, at head 620ca69)
+
+Run: `efficient_corporate_travel_agent/pilot/ladder/runs/validation_w2b_2026-11-25/fedex-office-flight-policy@w2b/`,
+same model and settings (Nebius), all 24 scenarios.
+
+## Results
+
+20/24 valid (83.3%), mean field score 0.896, **easy 5/5** (cinder-heath, fixed after wave 2, passed). Flags 1/3.
+$0.00151 billed per run. One run (quince-harbor) hit max_steps without submitting.
+
+## Every failure, classified
+
+| scenario | category | submitted vs key | class | evidence |
+|---|---|---|---|---|
+| quince-harbor | hidden_clause | no submit: max_steps (6) reached; key BOOK Alaska Friday, LOWEST_FARE or PERSONAL_COST_PAID_BY_TRAVELER | model slip (degenerate repetition) | The event stream (`.events/.../quince-harbor/r1.ndjson`) shows steps 2-6 emitting the same reasoning word for word and the same `search_flights` call (DEN-SEA, 2027-02-12) five times. The reasoning was on track ("FXO pays the airfare of the least expensive routing for the business trip as if no personal travel were included ... we should book the Friday flight"); it never searched the Monday date or submitted. Nothing in the record or tools invites the loop: the search returned the same four offers each time. It passed in wave 2. |
+| sedge-copper | distractor | BOOK United economy, LOYALTY_PROGRAM_PREFERENCE, clause NON_PAID_LOYALTY; key American economy | model slip | It took the distractor: "section 3.8.3 Non-paid Loyalty Clubs: 'Team Members may retain frequent flyer program benefits.' This supports booking United." It quoted "the policy says lowest logical coach airfare" (lines 135-137) and set it aside, and never read lines 820-821 (airfare is not reimbursed when a Team Member insists on a specific airline instead of a cheaper fare). |
+| vale-pewter | flag | BOOK, offer 3ZF4-NT9W (the early **economy** offer) with cabin BUSINESS, INTERNATIONAL_LONG_FLIGHT; key FLAG early-business | model slip (borderline weak flag; booked in both paid runs) | "The flight's total flying time is 235 + 205 = 440 minutes ... So business class is permitted. The cheapest business offer is 3ZF4-NT9W at $1,980." 3ZF4-NT9W is the $528 economy fare; the business fare is 4C37-T6HH. The answer fails on its own reading too. As in wave 2 it took the summing reading of line 155 and never weighed the other. |
+| willow-cairn | flag | BOOK business, INTERNATIONAL_LONG_FLIGHT; key FLAG | model slip (second run in a row) | "a 6.25-hour nonstop international flight (MIA→YVR, US to Canada)". It again never weighed that the handbook files Vancouver under 3.6.1 Domestic Travel Meals (lines 298-305) and groups the US with Canada (lines 515-516). |
+
+## Fixes
+
+None. Every failure is a slip.
+
+**For the lead:** vale-pewter has booked business on the summing reading in both paid runs (wave 2 suggested making
+it a BOOK under a new id if it booked again). This run's answer also submitted the economy offer id, so it would
+fail a BOOK key as well. The hold is left as it is; whether to replace it with a BOOK under a new id is the lead's
+call.
+
+## Q2
+
+Unchanged: the always-cheapest agent passes **7/24 (29%)**.
+
+## Re-score at the new head (stored answers)
+
+20/24 (no key changed). No re-run is required. Optional: quince-harbor, to confirm the loop was variance.
