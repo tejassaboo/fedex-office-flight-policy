@@ -104,6 +104,7 @@ CERTIFIERS = (Approver.VICE_PRESIDENT, Approver.SENIOR_VICE_PRESIDENT, Approver.
 # Lines 298-305: the "High Cost Cities" list of 3.6.1 Domestic Travel Meals names Anchorage and Honolulu.
 LISTED_DOMESTIC = ("ANC", "HNL")
 
+UNCLEAR_REASONS = [ReasonCode.UNCLEAR_POLICY_TEXT, ReasonCode.APPROVAL_REQUIRED]
 CONNECTIONS_PHRASE = "not including connections or layovers"
 INTERNATIONAL_PHRASE = "international travel"
 
@@ -340,10 +341,11 @@ def business_request(trip, seated, economy, trip_roles):
     verdict = verdicts.pop()
     business = cheapest([offer for offer in seated if offer.cabin == Cabin.BUSINESS])
     unclear_roles = [Approver.NOT_NAMED, Approver.MANAGING_DIRECTOR]
+    # A hold over unclear words that names the MD as the role it may await may also give APPROVAL_REQUIRED.
     if trip.home_country == "US" and countries == {"US", "CA"}:
         if verdict is not True or not business:
             raise ValueError("a Canada trip within 6 hours, or without business seats, is not modelled")
-        return answer(Decision.FLAG_FOR_APPROVAL, business, [ReasonCode.UNCLEAR_POLICY_TEXT], unclear_roles,
+        return answer(Decision.FLAG_FOR_APPROVAL, business, UNCLEAR_REASONS, unclear_roles,
                       [*CLASS_CLAUSES, Clause.DOMESTIC_MEALS],
                       "Lines 154-156 allow business class for international travel over 6 hours of flying, but the "
                       "handbook does not define international, lists Toronto and Vancouver among the high cost cities "
@@ -359,7 +361,7 @@ def business_request(trip, seated, economy, trip_roles):
     if not business:
         raise ValueError("a business request with no business seat is not modelled")
     if verdict is None:
-        return answer(Decision.FLAG_FOR_APPROVAL, business, [ReasonCode.UNCLEAR_POLICY_TEXT], unclear_roles,
+        return answer(Decision.FLAG_FOR_APPROVAL, business, UNCLEAR_REASONS, unclear_roles,
                       CLASS_CLAUSES,
                       "Lines 154-156: no single flight is over 6 hours, but the flights added together are; the handbook "
                       "says the flying time does 'not include connections or layovers' and does not say whether the "

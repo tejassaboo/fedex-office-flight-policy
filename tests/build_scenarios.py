@@ -64,7 +64,8 @@ DEPENDENT_LIST = keep(827, 828, None, "the non-reimbursable list repeats it")
 GUEST = keep(538, 543, None, "a business guest's or supplier's air travel is not paid in advance; suppliers invoice")
 INSIST = keep(820, 821, "Airfare if a Team Member insists on traveling on a specific airline instead of using a cheaper "
               "fare", "insisting on an airline instead of a cheaper fare is not reimbursed")
-DOMESTIC_ADVANCE = keep(121, 124, None, "booking 14 days ahead is an attempt to make, not a ban")
+DOMESTIC_ADVANCE_ASIDE = aside(121, 122, "Team Members should make every attempt to book travel at least 14 days in "
+                               "advance", "booking 14 days ahead is an attempt to make, not a ban, and not a cabin rule")
 
 # ----- nearby clauses that must not change the answer -----
 FREQUENT = aside(498, 498, "Team Members may retain frequent flyer program benefits.",
@@ -171,31 +172,35 @@ UNCLEAR_ROLES = ["MANAGING_DIRECTOR", "NOT_NAMED"]
 # ===== easy (5) =====
 
 scenario(
-    "aspen-wharf", "easy", [],
-    "I'm flying Atlanta to Chicago O'Hare on January 14th for the regional operations review. Economy, whatever is "
-    "cheapest.",
-    trip(traveller_name="Marcus Bell", traveller_title="Center Manager, Midtown Atlanta", origin="ATL", destination="ORD",
-         travel_date="2027-01-14", booking_date="2026-12-02", purpose="Regional operations review in Chicago",
-         purpose_kind="INTERNAL_MEETING"),
+    "aspen-wharf", "easy", ["dearer_option"],
+    "I'm flying Atlanta to Chicago O'Hare on January 14th for the regional operations review the next morning. First "
+    "class, please.",
+    trip(traveller_name="Marcus Bell", traveller_title="Senior Vice President, Retail Operations",
+         job_level="SENIOR_VICE_PRESIDENT", origin="ATL", destination="ORD", travel_date="2027-01-14",
+         booking_date="2026-12-02", purpose="Regional operations review in Chicago", purpose_kind="INTERNAL_MEETING",
+         requested_cabin="FIRST", approver_name="Raymond Cho"),
     search("ATL", "ORD", "2027-01-14", {
         "early": {"carrier": "DL", "depart": "06:15"},
         "morning": {"carrier": "UA", "depart": "08:40"},
         "midday": {"carrier": "AA", "depart": "11:05"},
-        "late": {"carrier": "DL", "depart": "17:20"},
     }, [
-        offer("early-economy", "early", "ECONOMY", 18900, seats=False),
+        offer("early-economy", "early", "ECONOMY", 18900),
+        offer("early-first", "early", "FIRST", 61500, seats=False),
         offer("morning-economy", "morning", "ECONOMY", 21400),
+        offer("morning-first", "morning", "FIRST", 64800),
         offer("midday-economy", "midday", "ECONOMY", 22900),
-        offer("late-economy", "late", "ECONOMY", 39500, refundable=True),
+        offer("midday-first", "midday", "FIRST", 69900),
     ]),
-    expected("BOOK", ["morning-economy"], ["ECONOMY"], ["LOWEST_FARE"], AM, LOW_CLAUSES),
-    LOW,
-    "Domestic nonstops only: the lowest logical coach airfare (lines 135-137). The cheaper 06:15 fare is sold out; the "
-    "refundable fare is dearer. The trip is approved in advance (lines 760-762).")
+    expected("BOOK", ["morning-first"], ["FIRST"], ["SENIOR_ROLE_ENTITLEMENT"], AM, CLASS),
+    [VP_FIRST, APPROVED],
+    "A Senior Vice President is above a Vice President, and 'Vice Presidents and above may fly first class' (line 138); "
+    "the traveller asks for it. The cheaper 06:15 first-class seat is sold out: the cheapest first-class fare that can "
+    "be bought. The trip is approved in advance (lines 760-762).")
 
 scenario(
     "briar-cove", "easy", ["multi_leg"],
-    "Can you book me Boston to Phoenix on February 2nd for the customer kickoff? I don't mind connecting if it saves "
+    "Can you book me Boston to Phoenix on February 2nd for the customer kickoff the next morning? I don't mind "
+    "connecting if it saves "
     "real money.",
     trip(traveller_name="Owen Pruitt", traveller_title="Account Executive", job_level="TEAM_MEMBER", origin="BOS",
          destination="PHX", travel_date="2027-02-02", booking_date="2026-12-29",
@@ -327,8 +332,8 @@ scenario(
 
 CLT_TRIP = {"origin": "CLT", "destination": "DEN", "travel_date": "2027-02-10", "booking_date": "2027-01-06",
             "purpose": "Mountain district center visits", "purpose_kind": "CENTER_VISIT", "requested_routing": "NONSTOP"}
-CLT_REQUEST = ("Charlotte to Denver on February 10th for the district center visits. I'd really prefer the nonstop "
-               "if I can have it.")
+CLT_REQUEST = ("Charlotte to Denver on February 10th for the district center visits, which start the next morning. "
+               "I'd really prefer the nonstop if I can have it.")
 
 
 def clt(connection_cents):
@@ -368,8 +373,8 @@ scenario(
 SEA_TRIP = {"origin": "SEA", "destination": "MCO", "travel_date": "2027-03-03", "booking_date": "2027-01-27",
             "purpose": "Southeast print-production training in Orlando", "purpose_kind": "TRAINING",
             "requested_routing": "NONSTOP", "job_level": "TEAM_MEMBER"}
-SEA_REQUEST = ("Seattle to Orlando on March 3rd for the print-production training. A nonstop would be great, "
-               "please.")
+SEA_REQUEST = ("Seattle to Orlando on March 3rd for the print-production training, which starts the next morning. A "
+               "nonstop would be great, please.")
 
 
 def sea(layover):
@@ -469,7 +474,8 @@ NETTLE_SEARCH = search("IAH", "SFO", "2027-02-04", {
 scenario(
     "nettle-bay", "multi_rule", ["multi_traveller", "upgrade_not_taken"],
     "Houston to San Francisco on February 4th for the client pitch. Karen, our VP, is on the 8:20 United in first and "
-    "wants me next to her so we can rehearse the pitch on the way. Can you put me in first beside her?",
+    "wants me next to her so we can rehearse the pitch on the way. Can you put me in first beside her? If not, book "
+    "what the policy allows; I have to be at the pitch.",
     trip(traveller_name="Daniel Ortiz", traveller_title="Director, Enterprise Sales", job_level="DIRECTOR", origin="IAH",
          destination="SFO", travel_date="2027-02-04", booking_date="2027-01-05",
          purpose="Enterprise client pitch in San Francisco", requested_cabin="FIRST",
@@ -486,7 +492,7 @@ scenario(
 scenario(
     "oak-lantern", "multi_rule", [],
     "Newark to Honolulu on March 2nd for the Hawaii center openings. It's about eleven hours in the air, so I'd like "
-    "business class.",
+    "business class, if the policy allows it.",
     trip(traveller_name="Rachel Kim", traveller_title="Manager, New Center Openings", origin="EWR", destination="HNL",
          travel_date="2027-03-02", booking_date="2027-01-19", purpose="New center openings in Honolulu",
          purpose_kind="CENTER_VISIT", requested_cabin="BUSINESS"),
@@ -515,7 +521,7 @@ scenario(
          origin="ORD", destination="LAX", travel_date="2027-02-25", booking_date="2027-01-21",
          purpose="Board presentation in Los Angeles", purpose_kind="INTERNAL_MEETING", requested_cabin="FIRST",
          sign_offs=[sign("MANAGING_DIRECTOR", "Gloria Hughes", "POLICY_EXCEPTION",
-                         "A documented exception to the travel policy: first class on this flight")]),
+                         "A documented exception to the travel policy: first class for this trip")]),
     search("ORD", "LAX", "2027-02-25", {
         "united": {"carrier": "UA", "depart": "07:30"},
         "american": {"carrier": "AA", "depart": "09:45"},
@@ -571,31 +577,33 @@ scenario(
 
 scenario(
     "rowan-flint", "distractor", ["date_arithmetic", "month_end"],
-    "Short notice, sorry: I need to be in Atlanta on Sunday December 6th for the center audit that starts Monday. "
-    "Leaving from Minneapolis. Whatever's cheapest.",
-    trip(traveller_name="Heidi Brandt", traveller_title="Loss Prevention Manager", origin="MSP", destination="ATL",
-         travel_date="2026-12-06", booking_date="2026-11-27", purpose="Center audit in Atlanta",
-         purpose_kind="CENTER_VISIT"),
-    search("MSP", "ATL", "2026-12-06", {
-        "early": {"carrier": "DL", "depart": "07:10"},
-        "midday": {"carrier": "DL", "depart": "12:40"},
-        "afternoon": {"carrier": "DL", "depart": "15:30"},
+    "Short notice, sorry: the European center audit in Amsterdam starts Tuesday December 8th, and I'll fly out of "
+    "Minneapolis overnight on Sunday December 6th. Business class please, if the policy allows it.",
+    trip(traveller_name="Heidi Brandt", traveller_title="Senior Manager, Loss Prevention", job_level="SENIOR_MANAGER",
+         origin="MSP", destination="AMS", travel_date="2026-12-06", booking_date="2026-11-27",
+         purpose="European center audit in Amsterdam", purpose_kind="CENTER_VISIT", requested_cabin="BUSINESS"),
+    search("MSP", "AMS", "2026-12-06", {
+        "delta": {"carrier": "DL", "depart": "15:40", "minutes": [500]},
+        "klm": {"carrier": "KL", "depart": "18:10", "minutes": [505]},
     }, [
-        offer("early-economy", "early", "ECONOMY", 26800),
-        offer("midday-economy", "midday", "ECONOMY", 51500, refundable=True),
-        offer("afternoon-economy", "afternoon", "ECONOMY", 28900),
-    ]),
-    expected("BOOK", ["early-economy"], ["ECONOMY"], ["LOWEST_FARE"], AM, LOW_CLAUSES + ["DOMESTIC_TICKETS"]),
-    LOW + [DOMESTIC_ADVANCE],
+        offer("delta-economy", "delta", "ECONOMY", 84500),
+        offer("delta-business", "delta", "BUSINESS", 362000),
+        offer("klm-economy", "klm", "ECONOMY", 86900),
+        offer("klm-business", "klm", "BUSINESS", 348000),
+    ], background=0),
+    expected("BOOK", ["klm-business"], ["BUSINESS"], ["INTERNATIONAL_LONG_FLIGHT"], AM, CLASS),
+    [BUSINESS, APPROVED],
     "Booked 9 days ahead (November 27 to December 6). Lines 121-124 ask Team Members to 'make every attempt' to book "
-    "14 days ahead and note that non-refundable fares usually need it, but that is no ban: the cheapest non-refundable "
-    "fare is listed and is the lowest logical coach airfare. The refundable fare is dearer.",
-    distractors=[FEES, LATE])
+    "14 days ahead (under Domestic Airline Tickets) and note that non-refundable fares usually need it, but that is no "
+    "ban and does not touch the cabin. International nonstops of 500 and 505 scheduled minutes: more than 6 hours, so "
+    "business class may be used (lines 154-156) and the traveller asks for it: the cheaper business fare.",
+    distractors=[DOMESTIC_ADVANCE_ASIDE, FEES, LATE])
 
 scenario(
     "sedge-copper", "distractor", ["outside_air_section", "upgrade_not_taken"],
     "Philadelphia to Los Angeles on January 28th for the West Coast supplier review. Economy is fine for me, but please "
-    "put me on United: I'm a few flights short of keeping my status.",
+    "put me on United: I'm a few flights short of keeping my status. If United isn't possible, book what the "
+    "policy allows; I have to be at the review.",
     trip(traveller_name="Victor Alvarez", traveller_title="Vice President, Supply Chain", job_level="VICE_PRESIDENT",
          origin="PHL", destination="LAX", travel_date="2027-01-28", booking_date="2026-12-22",
          purpose="West Coast supplier review", purpose_kind="SUPPLIER_VISIT", requested_airline="United Airlines",
@@ -684,7 +692,7 @@ scenario(
         offer("late-economy", "late", "ECONOMY", 55400),
         offer("late-business", "late", "BUSINESS", 212000),
     ], background=0),
-    expected("FLAG_FOR_APPROVAL", ["early-business"], ["BUSINESS"], ["UNCLEAR_POLICY_TEXT"], UNCLEAR_ROLES, CLASS,
+    expected("FLAG_FOR_APPROVAL", ["early-business"], ["BUSINESS"], ["APPROVAL_REQUIRED", "UNCLEAR_POLICY_TEXT"], UNCLEAR_ROLES, CLASS,
              phrase="not including connections or layovers"),
     [BUSINESS, EXCEPTIONS, APPROVED],
     "Only connections through Miami: 235 + 205 = 440 flying minutes, but no single flight over 360. Lines 154-156 count "
@@ -716,7 +724,7 @@ scenario(
         offer("american-economy", "american", "ECONOMY", 51200),
         offer("american-business", "american", "BUSINESS", 199000),
     ], background=0),
-    expected("FLAG_FOR_APPROVAL", ["aircanada-business"], ["BUSINESS"], ["UNCLEAR_POLICY_TEXT"], UNCLEAR_ROLES,
+    expected("FLAG_FOR_APPROVAL", ["aircanada-business"], ["BUSINESS"], ["APPROVAL_REQUIRED", "UNCLEAR_POLICY_TEXT"], UNCLEAR_ROLES,
              CLASS + ["DOMESTIC_MEALS"], phrase="international travel"),
     [BUSINESS, HIGH_COST, CAR_CANADA, EXCEPTIONS, APPROVED],
     "375-minute nonstops: over 6 hours of flying. Business class is for 'international travel' (lines 154-156), which "

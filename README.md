@@ -44,7 +44,7 @@ about 14,500 and brings the run to the cap.
 
 | Scenario | Category | Expected decision (offer; cabin) | Reason | Approver | Clause (frozen lines of must_keep) |
 |---|---|---|---|---|---|
-| `aspen-wharf` | easy | BOOK (morning-economy; ECONOMY) | LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or POLICY_GENERAL (135-137, 44-45, 760-762) |
+| `aspen-wharf` | easy | BOOK (morning-first; FIRST) | SENIOR_ROLE_ENTITLEMENT | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (138, 760-762) |
 | `briar-cove` | easy | BOOK (denver-economy; ECONOMY) | ALTERNATE_ROUTE_TOO_EXPENSIVE or COST_SAVINGS or LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or CONNECTING_FLIGHTS or POLICY_GENERAL (135-137, 44-45, 760-762, 129-133) |
 | `cinder-heath` | easy | BOOK (united-business; BUSINESS) | INTERNATIONAL_LONG_FLIGHT | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (154-156, 760-762) |
 | `dover-moss` | easy | BOOK (united-first; FIRST) | SENIOR_ROLE_ENTITLEMENT | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (138, 760-762) |
@@ -61,16 +61,16 @@ about 14,500 and brings the run to the cap.
 | `oak-lantern` | multi_rule | BOOK (morning-economy; ECONOMY) | LONG_FLIGHT_CONDITION_NOT_MET or LOWEST_FARE or UPGRADE_NOT_ELIGIBLE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or DOMESTIC_MEALS or POLICY_GENERAL (154-156, 298-305, 135-137, 44-45, 760-762) |
 | `plume-sorrel` | hidden_clause | BOOK (american-first; FIRST) | POLICY_EXCEPTION_APPROVED | APPROVING_MANAGER or MANAGING_DIRECTOR or NONE | ACCOUNTABILITY or EXCEPTIONS (77-80, 932-934, 760-762) |
 | `quince-harbor` | hidden_clause | BOOK (alaska-friday; ECONOMY) | LOWEST_FARE or PERSONAL_COST_PAID_BY_TRAVELER | APPROVING_MANAGER or NONE | PERSONAL_WITH_BUSINESS (526-531, 760-762) |
-| `rowan-flint` | distractor | BOOK (early-economy; ECONOMY) | LOWEST_FARE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or DOMESTIC_TICKETS or POLICY_GENERAL (135-137, 44-45, 760-762, 121-124) |
+| `rowan-flint` | distractor | BOOK (klm-business; BUSINESS) | INTERNATIONAL_LONG_FLIGHT | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE (154-156, 760-762) |
 | `sedge-copper` | distractor | BOOK (american-economy; ECONOMY) | LOWEST_FARE or LOYALTY_PROGRAM_PREFERENCE | APPROVING_MANAGER or NONE | AIR_TRAVEL or CLASS_OF_SERVICE or NON_REIMBURSABLE or POLICY_GENERAL (135-137, 44-45, 760-762, 820-821) |
 | `thistle-marsh` | refusal | REFUSE (none; NONE) | BUSINESS_GUEST_NOT_PREPAID or OUTSIDE_POLICY_SCOPE | APPROVING_MANAGER or NONE | BUSINESS_GUESTS (538-543) |
 | `umber-wick` | refusal | REFUSE (none; NONE) | COMPANION_NOT_COVERED or PERSONAL_TRAVEL_NOT_COVERED | APPROVING_MANAGER or NONE | DEPENDENT_TRAVEL or NON_REIMBURSABLE (534-536, 827-828) |
-| `vale-pewter` | flag | FLAG_FOR_APPROVAL (early-business; BUSINESS) | UNCLEAR_POLICY_TEXT | MANAGING_DIRECTOR or NOT_NAMED | AIR_TRAVEL or CLASS_OF_SERVICE (154-156, 77-80, 760-762) |
-| `willow-cairn` | flag | FLAG_FOR_APPROVAL (aircanada-business; BUSINESS) | UNCLEAR_POLICY_TEXT | MANAGING_DIRECTOR or NOT_NAMED | AIR_TRAVEL or CLASS_OF_SERVICE or DOMESTIC_MEALS (154-156, 298-305, 515-516, 77-80, 760-762) |
+| `vale-pewter` | flag | FLAG_FOR_APPROVAL (early-business; BUSINESS) | UNCLEAR_POLICY_TEXT or APPROVAL_REQUIRED | MANAGING_DIRECTOR or NOT_NAMED | AIR_TRAVEL or CLASS_OF_SERVICE (154-156, 77-80, 760-762) |
+| `willow-cairn` | flag | FLAG_FOR_APPROVAL (aircanada-business; BUSINESS) | UNCLEAR_POLICY_TEXT or APPROVAL_REQUIRED | MANAGING_DIRECTOR or NOT_NAMED | AIR_TRAVEL or CLASS_OF_SERVICE or DOMESTIC_MEALS (154-156, 298-305, 515-516, 77-80, 760-762) |
 | `yarrow-glint` | flag | FLAG_FOR_APPROVAL (american-first; FIRST) | APPROVAL_REQUIRED or MEDICAL_NEED | SENIOR_VICE_PRESIDENT or VICE_PRESIDENT | AIR_TRAVEL or CLASS_OF_SERVICE (139-144, 760-762) |
 
 Mix (EDGE_CASES.md 5.2, 24 row): 5 easy, 6 boundary twins, 4 multi-rule, 2 hidden clause, 2 distractor, 2 refusal,
-3 flags (12.5%; the 15% cap is 3). Decisions: 19 BOOK (4 first, 2 business, 13 economy), 2 REFUSE, 3
+3 flags (12.5%; the 15% cap is 3). Decisions: 19 BOOK (5 first, 3 business, 11 economy), 2 REFUSE, 3
 FLAG_FOR_APPROVAL. Twin pairs: 361 against 360 scheduled minutes on international nonstops (`fern-quarry`,
 `gull-ridge`); a connection saving $151 against $150 (`hazel-tarn`, `iris-brook`); a connection arriving 120 against
 121 minutes after the nonstop (`juniper-slate`, `kestrel-dune`).
@@ -104,7 +104,7 @@ the case does not pin lists nothing.
 
 Degenerate agents (`tests/test_verifier.py`): one that always holds the right offer as unclear passes 2 cases
 (`vale-pewter`, `willow-cairn`); one that always books the cheapest seat with `LOWEST_FARE`, `NONE` and the right
-section passes 12 (the cheapest-economy cases, now that `NONE` is accepted beside a sign-off on file; it fails every
+section passes 10 (the cheapest-economy cases, now that `NONE` is accepted beside a sign-off on file; it fails every
 first, business, personal, refusal and hold case).
 
 ## Tools
@@ -132,7 +132,8 @@ first, business, personal, refusal and hold case).
 - `verifier/`: byte-identical copies of the shared modules and `rules.py`, plus `booking.py` and `tools.py`.
 - `tests/`: the template's acceptance suite; `tests/plugin_spec.py` holds this policy's settings.
 - `tests/build_scenarios.py`: writes the scenario files (an authoring aid, not a test).
-- `BUILD_NOTES.md`: decisions taken during the build, the blind read and the acceptance outputs.
+- `tests/BUILD_NOTES.md`: decisions taken during the build, the blind read and the acceptance outputs.
+- `tests/AUDIT_NOTES.md`: the independent audit: defects found and fixed.
 
 ## Develop and run
 
