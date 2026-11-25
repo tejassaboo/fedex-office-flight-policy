@@ -113,3 +113,13 @@ reason code gives why their request is declined." Every BOOK that declines what 
 Always-cheapest baseline (`MAX_PASS_ALWAYS_LOWEST`): 10 -> 5. Rules changed in both `rules.py` copies (still
 byte-identical); scenario JSON regenerated. Acceptance: pytest 208 passed, ruff clean, `uv lock --check` ok,
 `check_shared.py` ok, `stock_verify.py` 24 scenarios 0 failures, stock `nanoagent plugin inspect .` exit 0.
+
+## Follow-up: LOWEST_FARE back on nonstops declined by the connection test (lead's decision)
+
+For consistency across all plugins (Thornton and Hill-Rom already do this): when a nonstop is declined because the
+cheaper connection passes the handbook's specific savings or time-margin test, which is part of its
+lowest-logical-fare rule, the key accepts both `LOWEST_FARE` and the specific codes. `hazel-tarn` and `juniper-slate` (lines 129-133, more than $150 saved with no more than two hours' delay) now accept `ALTERNATE_ROUTE_TOO_EXPENSIVE`, `COST_SAVINGS`, `LOWEST_FARE`; the `NONSTOP_DECLINED` set is gone and both use `CLEAR_CONNECTION` again, as `briar-cove` does.
+
+Always-cheapest baseline (`MAX_PASS_ALWAYS_LOWEST`): 5 -> 7 (hazel-tarn, juniper-slate). Both `rules.py` copies changed identically, scenario JSON
+regenerated. Acceptance: pytest 208 passed, ruff clean, `uv lock --check` ok, `check_shared.py` ok, `stock_verify.py` 24
+scenarios 0 failures, stock `nanoagent plugin inspect .` exit 0.

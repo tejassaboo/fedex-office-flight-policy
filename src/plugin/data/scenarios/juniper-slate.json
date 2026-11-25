@@ -100,7 +100,8 @@
     ],
     "reason_codes": [
       "ALTERNATE_ROUTE_TOO_EXPENSIVE",
-      "COST_SAVINGS"
+      "COST_SAVINGS",
+      "LOWEST_FARE"
     ],
     "approvers": [
       "APPROVING_MANAGER",

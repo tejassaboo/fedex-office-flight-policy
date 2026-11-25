@@ -183,12 +183,10 @@ def connection_choice(trip, economy):
         raise ValueError("a delay that is within two hours on one measure and over on another is not modelled")
     delay = max(delays)
     if savings > SAVINGS_CENTS and delay <= DELAY_MINUTES:
-        reasons = [ReasonCode.COST_SAVINGS, ReasonCode.ALTERNATE_ROUTE_TOO_EXPENSIVE]
-        # A nonstop the traveller asked for is declined on the example's savings and delay test (a $150 saving
-        # alone keeps it, iris-brook), so the reason names that test and LOWEST_FARE is not accepted; a traveller
-        # who asked for nothing gets the lowest logical fare, and LOWEST_FARE names it.
-        if trip.requested_routing != Routing.NONSTOP:
-            reasons.append(ReasonCode.LOWEST_FARE)
+        # A nonstop the traveller asked for is declined on the savings and delay test, which is part of the
+        # lowest-logical-fare rule, so LOWEST_FARE is accepted beside the specific codes (lead's decision, the same
+        # in every plugin); a traveller who asked for nothing gets the same set.
+        reasons = [ReasonCode.COST_SAVINGS, ReasonCode.ALTERNATE_ROUTE_TOO_EXPENSIVE, ReasonCode.LOWEST_FARE]
         return ([connection], reasons, [Clause.CONNECTING_FLIGHTS],
                 (f"lines 129-133: the one-connection fare saves {savings} cents (more than $150) and delays the travel "
                 f"{delay} minutes (not more than two hours), so the connection is to be accepted"))
